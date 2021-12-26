@@ -16,7 +16,16 @@
                 </template>
                 </el-table-column>
 
-                <el-table-column prop="province" label="省级"  align="center" style="width:10%" />
+                <el-table-column prop="province" label="省级"  align="center" style="width:10%" 
+                 :filters="[
+                    { text: '广东', value: '广东' },
+                    { text: '湖北', value: '湖北' },
+                    { text: '福建', value: '福建' },
+                ]"
+                :filter-method="provinceTag"
+                filter-placement="bottom-end"
+                
+                />
                 <el-table-column prop="city" label="市级"  align="center" style="width:10%" />
                 <el-table-column prop="county" label="区/县"  align="center" style="width:10%" />
                 <!-- <el-table-column prop="hospital" label="三甲医院"  align="center" style="width:10%" /> -->
@@ -31,7 +40,7 @@
             </el-table>
             <div class="pagination">
                     <el-pagination background layout="total, sizes, prev, pager, next" :current-page="query.pageIndex"
-                       :page-sizes="[10, 15, 20]" v-model:page-size="query.pageSize" :total="tableData.length" @current-change="handlePageChange"></el-pagination>
+                       :page-sizes="[10, 15, 20, 50, 100]" v-model:page-size="query.pageSize" :total="tableData.length" @current-change="handlePageChange"></el-pagination>
             </div>
         </div>
 
@@ -132,6 +141,9 @@ export default {
         const filterTag = (value, row) =>{
             return row.hotcity === value
         };
+        const provinceTag = (value, row) =>{
+            return row.province === value
+        };
 
         return {
             query,
@@ -144,7 +156,7 @@ export default {
             handleEdit,
             saveEdit,
             filterTag,
-            
+            provinceTag,
         };
     },
 };
