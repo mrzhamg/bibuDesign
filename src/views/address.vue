@@ -2,7 +2,7 @@
     <div> 
         <div class="container">
             <!-- 表单 -->
-            <el-table ref="filterTable" row-key="date" :data="tableData" border style="width: 100%">
+            <el-table ref="filterTable" row-key="date" :data="tableData.slice((query.pageIndex-1)*query.pageSize,query.pageIndex*query.pageSize)" border style="width: 100%">
                 <el-table-column label="序号" type="index"  align="center" style="width:30%"/>
                 <el-table-column prop="hotcity" label="热门城市"  align="center" style="width:10%" 
                 :filters="[
@@ -30,8 +30,8 @@
                 </el-table-column>
             </el-table>
             <div class="pagination">
-                    <el-pagination background layout="total, prev, pager, next" :current-page="query.pageIndex"
-                        :page-size="query.pageSize" :total="tableData.length" @current-change="handlePageChange"></el-pagination>
+                    <el-pagination background layout="total, sizes, prev, pager, next" :current-page="query.pageIndex"
+                       :page-sizes="[10, 15, 20]" v-model:page-size="query.pageSize" :total="tableData.length" @current-change="handlePageChange"></el-pagination>
             </div>
         </div>
 
