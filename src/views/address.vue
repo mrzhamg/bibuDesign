@@ -1,37 +1,37 @@
 <template>
     <div> 
         <div class="container">
-            
-        <el-table ref="filterTable" row-key="date" :data="tableData" border style="width: 100%">
-            <el-table-column label="序号" type="index"  align="center" style="width:30%"/>
-            <el-table-column prop="hotcity" label="热门城市"  align="center" style="width:10%" 
-            :filters="[
-                { text: '热', value: '热' },
-                { text: '冷', value: '冷' },
-            ]"
-            :filter-method="filterTag"
-            filter-placement="bottom-end">
-            <template #default="scope">
-                <el-tag :type="scope.row.hotcity === '热' ? 'danger' : 'info'" disable-transitions>{{ scope.row.hotcity }}</el-tag>
-            </template>
-            </el-table-column>
-
-            <el-table-column prop="province" label="省级"  align="center" style="width:10%" />
-            <el-table-column prop="city" label="市级"  align="center" style="width:10%" />
-            <el-table-column prop="county" label="区/县"  align="center" style="width:10%" />
-            <!-- <el-table-column prop="hospital" label="三甲医院"  align="center" style="width:10%" /> -->
-            <el-table-column prop="states" label="优先级"  align="center" sortable style="width:10%"/>
-
-            <el-table-column label="操作"  align="center" style="width:10%" >
+            <!-- 表单 -->
+            <el-table ref="filterTable" row-key="date" :data="tableData" border style="width: 100%">
+                <el-table-column label="序号" type="index"  align="center" style="width:30%"/>
+                <el-table-column prop="hotcity" label="热门城市"  align="center" style="width:10%" 
+                :filters="[
+                    { text: '热', value: '热' },
+                    { text: '冷', value: '冷' },
+                ]"
+                :filter-method="filterTag"
+                filter-placement="bottom-end">
                 <template #default="scope">
-                    <el-button size="mini" @click="handleEdit(scope.$index, scope.row)" >修改</el-button>
-                    <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">隐藏</el-button>
+                    <el-tag :type="scope.row.hotcity === '热' ? 'danger' : 'info'" disable-transitions>{{ scope.row.hotcity }}</el-tag>
                 </template>
-            </el-table-column>
-        </el-table>
+                </el-table-column>
+
+                <el-table-column prop="province" label="省级"  align="center" style="width:10%" />
+                <el-table-column prop="city" label="市级"  align="center" style="width:10%" />
+                <el-table-column prop="county" label="区/县"  align="center" style="width:10%" />
+                <!-- <el-table-column prop="hospital" label="三甲医院"  align="center" style="width:10%" /> -->
+                <el-table-column prop="states" label="优先级"  align="center" sortable style="width:10%"/>
+
+                <el-table-column label="操作"  align="center" style="width:10%" >
+                    <template #default="scope">
+                        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)" >修改</el-button>
+                        <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">隐藏</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
             <div class="pagination">
-                <el-pagination background layout="total, prev, pager, next" :current-page="query.pageIndex"
-                    :page-size="query.pageSize" :total="tableData.length" @current-change="handlePageChange"></el-pagination>
+                    <el-pagination background layout="total, prev, pager, next" :current-page="query.pageIndex"
+                        :page-size="query.pageSize" :total="tableData.length" @current-change="handlePageChange"></el-pagination>
             </div>
         </div>
 

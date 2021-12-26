@@ -63,6 +63,46 @@
             "hospital": "三甲",
             "states": "最低",
             "hotcity": "冷"
+        },
+        {
+            "province": "湖北",
+            "city": "武汉",
+            "county": "汉口区",
+            "hospital": "三甲",
+            "states": "次级",
+            "hotcity": "冷"
+        },
+        {
+            "province": "湖北",
+            "city": "武汉",
+            "county": "汉口区",
+            "hospital": "三甲",
+            "states": "次级",
+            "hotcity": "冷"
+        },
+        {
+            "province": "湖北",
+            "city": "武汉",
+            "county": "汉口区",
+            "hospital": "三甲",
+            "states": "次级",
+            "hotcity": "冷"
+        },
+        {
+            "province": "湖北",
+            "city": "武汉",
+            "county": "汉口区",
+            "hospital": "三甲",
+            "states": "次级",
+            "hotcity": "冷"
+        },
+        {
+            "province": "湖北",
+            "city": "武汉",
+            "county": "汉口区",
+            "hospital": "三甲",
+            "states": "次级",
+            "hotcity": "冷"
         }
     ]
 }
