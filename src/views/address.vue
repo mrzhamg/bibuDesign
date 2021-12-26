@@ -19,7 +19,7 @@
             <el-table-column prop="province" label="省级"  align="center" style="width:10%" />
             <el-table-column prop="city" label="市级"  align="center" style="width:10%" />
             <el-table-column prop="county" label="区/县"  align="center" style="width:10%" />
-            <el-table-column prop="hospital" label="三甲医院"  align="center" style="width:10%" />
+            <!-- <el-table-column prop="hospital" label="三甲医院"  align="center" style="width:10%" /> -->
             <el-table-column prop="states" label="优先级"  align="center" sortable style="width:10%"/>
 
             <el-table-column label="操作"  align="center" style="width:10%" >
