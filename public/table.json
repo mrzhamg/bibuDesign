@@ -6,7 +6,7 @@
         "county": "荔湾区",
         "hospital": "三甲",
         "states": "优先",
-        "hotcity": "热"
+        "hotcity": true
         },
         {
         "province": "广东",
@@ -14,7 +14,7 @@
         "county": "天河区",
         "hospital": "三甲",
         "states": "优先",
-        "hotcity": "热"
+        "hotcity": true
         },
         {
             "province": "广东",
@@ -22,7 +22,7 @@
             "county": "平山镇",
             "hospital": "三甲",
             "states": "次级",
-            "hotcity": "热"
+            "hotcity": false
         },
         {
             "province": "湖北",
@@ -30,7 +30,7 @@
             "county": "江汉区",
             "hospital": "三甲",
             "states": "次级",
-            "hotcity": "冷"
+            "hotcity": false
         },
         {
             "province": "湖北",
@@ -38,7 +38,7 @@
             "county": "汉口区",
             "hospital": "三甲",
             "states": "优先",
-            "hotcity": "冷"
+            "hotcity": false
         },
         {
             "province": "福建",
@@ -46,7 +46,7 @@
             "county": "湖里区",
         "hospital": "三甲",
         "states": "最低",
-        "hotcity": "冷"
+        "hotcity":false
         },
         {
             "province": "福建",
@@ -54,7 +54,7 @@
         "county": "湖里区",
         "hospital": "三甲",
         "states": "最低",
-        "hotcity": "冷"
+        "hotcity": true
         },
         {
             "province": "福建",
@@ -62,7 +62,7 @@
             "county": "思明区",
             "hospital": "三甲",
             "states": "优先",
-            "hotcity": "热"
+            "hotcity": true
         },
         {
             "province": "湖北",
@@ -70,7 +70,7 @@
             "county": "汉口区",
             "hospital": "三甲",
             "states": "次级",
-            "hotcity": "冷"
+            "hotcity": true
         },
         {
             "province": "湖北",
@@ -78,7 +78,7 @@
             "county": "汉口区",
             "hospital": "三甲",
             "states": "次级",
-            "hotcity": "冷"
+            "hotcity": true
         },
         {
             "province": "湖北",
@@ -86,7 +86,7 @@
             "county": "汉口区",
             "hospital": "三甲",
             "states": "次级",
-            "hotcity": "冷"
+            "hotcity": false
         },
         {
             "province": "湖北",
@@ -94,7 +94,7 @@
             "county": "汉口区",
             "hospital": "三甲",
             "states": "次级",
-            "hotcity": "冷"
+            "hotcity": false
         },
         {
             "province": "湖北",
@@ -102,7 +102,7 @@
             "county": "汉口区",
             "hospital": "三甲",
             "states": "次级",
-            "hotcity": "冷"
+            "hotcity": false
         },
         {
             "province": "湖北",
@@ -110,7 +110,7 @@
             "county": "汉口区",
             "hospital": "三甲",
             "states": "次级",
-            "hotcity": "冷"
+            "hotcity": true
         },
         {
             "province": "湖北",
@@ -118,7 +118,7 @@
             "county": "汉口区",
             "hospital": "三甲",
             "states": "次级",
-            "hotcity": "冷"
+            "hotcity": false
         },
         {
             "province": "湖北",
@@ -126,7 +126,7 @@
             "county": "汉口区",
             "hospital": "三甲",
             "states": "次级",
-            "hotcity": "冷"
+            "hotcity": false
         },
         {
             "province": "湖北",
@@ -134,7 +134,7 @@
             "county": "汉口区",
             "hospital": "三甲",
             "states": "次级",
-            "hotcity": "冷"
+            "hotcity": false
         },
         {
             "province": "湖北",
@@ -142,7 +142,7 @@
             "county": "汉口区",
             "hospital": "三甲",
             "states": "次级",
-            "hotcity": "冷"
+            "hotcity": false
         },
         {
             "province": "湖北",
@@ -150,7 +150,7 @@
             "county": "汉口区",
             "hospital": "三甲",
             "states": "次级",
-            "hotcity": "冷"
+            "hotcity": false
         },
         {
             "province": "湖北",
@@ -158,7 +158,7 @@
             "county": "汉口区",
             "hospital": "三甲",
             "states": "次级",
-            "hotcity": "冷"
+            "hotcity": true
         }
     ]
 }

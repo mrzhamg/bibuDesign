@@ -4,33 +4,23 @@
             <!-- 表单 -->
             <el-table ref="filterTable" row-key="date" :data="tableData.slice((query.pageIndex-1)*query.pageSize,query.pageIndex*query.pageSize)" border style="width: 100%">
                 <el-table-column label="序号" type="index"  align="center" style="width:30%"/>
+                
+
+                <el-table-column prop="province" label="省级"  align="center" style="width:10%" />
+                <el-table-column prop="city" label="市级"  align="center" style="width:10%" />
+                <el-table-column prop="county" label="区/县"  align="center" style="width:10%" />
                 <el-table-column prop="hotcity" label="热门城市"  align="center" style="width:10%" 
                 :filters="[
-                    { text: '热', value: '热' },
-                    { text: '冷', value: '冷' },
+                    { text: '热', value: true },
+                    { text: '冷', value: false },
                 ]"
                 :filter-method="filterTag"
                 filter-placement="bottom-end">
                 <template #default="scope">
-                    <el-tag :type="scope.row.hotcity === '热' ? 'danger' : 'info'" disable-transitions>{{ scope.row.hotcity }}</el-tag>
+                    <!-- <el-tag :type="scope.row.hotcity === '热' ? 'danger' : 'info'" disable-transitions>{{ scope.row.hotcity }}</el-tag> -->
+                    <el-switch v-model="scope.row.hotcity" active-color="#13ce66" ></el-switch>
                 </template>
                 </el-table-column>
-
-                <el-table-column prop="province" label="省级"  align="center" style="width:10%" 
-                 :filters="[
-                    { text: '广东', value: '广东' },
-                    { text: '湖北', value: '湖北' },
-                    { text: '福建', value: '福建' },
-                ]"
-                :filter-method="provinceTag"
-                filter-placement="bottom-end"
-                
-                />
-                <el-table-column prop="city" label="市级"  align="center" style="width:10%" />
-                <el-table-column prop="county" label="区/县"  align="center" style="width:10%" />
-                <!-- <el-table-column prop="hospital" label="三甲医院"  align="center" style="width:10%" /> -->
-                <el-table-column prop="states" label="优先级"  align="center" sortable style="width:10%"/>
-
                 <el-table-column label="操作"  align="center" style="width:10%" >
                     <template #default="scope">
                         <el-button size="mini" @click="handleEdit(scope.$index, scope.row)" >修改</el-button>
@@ -40,7 +30,7 @@
             </el-table>
             <div class="pagination">
                     <el-pagination background layout="total, sizes, prev, pager, next" :current-page="query.pageIndex"
-                       :page-sizes="[10, 15, 20, 50, 100]" v-model:page-size="query.pageSize" :total="tableData.length" @current-change="handlePageChange"></el-pagination>
+                       :page-sizes="[15, 20, 50, 100]" v-model:page-size="query.pageSize" :total="tableData.length" @current-change="handlePageChange"></el-pagination>
             </div>
         </div>
 
@@ -79,7 +69,7 @@ export default {
             address: "",
             name: "",
             pageIndex: 1,
-            pageSize: 10,
+            pageSize: 15,
         });
         const tableData = ref([]);
         // 获取表格数据
