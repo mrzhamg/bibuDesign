@@ -1,15 +1,30 @@
 <template>
     <div> 
         <div class="container">
+            <!-- 选择器 -->
+            <div class="handle-box">
+                <el-select v-model="query.province" placeholder="省份" class="handle-select mr10">
+                        <el-option key="1" label="所有省份" value="1"></el-option>
+                        <el-option
+                            v-for="item in selectData"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value"
+                            >
+                        </el-option>
+                </el-select>
+                <el-input v-model="query.city" placeholder="市级" class="handle-input mr10"></el-input>
+                <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+            </div>
             <!-- 表单 -->
-            <el-table ref="filterTable" row-key="date" :data="tableData.slice((query.pageIndex-1)*query.pageSize,query.pageIndex*query.pageSize)" border style="width: 100%">
+            <el-table ref="filterTable" height="867" row-key="date" :data="tableData.slice((query.pageIndex-1)*query.pageSize,query.pageIndex*query.pageSize)" border style="width: 100%">
                 <el-table-column label="序号" type="index"  align="center" style="width:30%"/>
                 
 
                 <el-table-column prop="province" label="省级"  align="center" style="width:10%" />
                 <el-table-column prop="city" label="市级"  align="center" style="width:10%" />
                 <el-table-column prop="county" label="区/县"  align="center" style="width:10%" />
-                <el-table-column prop="hotcity" label="热门城市"  align="center" style="width:10%" 
+                <el-table-column label="热门城市"  align="center" style="width:10%" 
                 :filters="[
                     { text: '热', value: true },
                     { text: '冷', value: false },
@@ -21,10 +36,14 @@
                     <el-switch v-model="scope.row.hotcity" active-color="#13ce66" ></el-switch>
                 </template>
                 </el-table-column>
+                <el-table-column label="前台显示/隐藏"  align="center" style="width:10%" >
+                <template  #default="scope">
+                    <el-switch v-model="scope.row.hotcity" active-color="#13ce66"></el-switch>
+                </template>
+                </el-table-column>
                 <el-table-column label="操作"  align="center" style="width:10%" >
                     <template #default="scope">
-                        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)" >修改</el-button>
-                        <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">隐藏</el-button>
+                        <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)" >修改</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -66,20 +85,29 @@ export default {
     name: "address",
     setup() {
         const query = reactive({
-            address: "",
-            name: "",
+            province: "",
+            city: "",
             pageIndex: 1,
             pageSize: 15,
+            active:true
         });
         const tableData = ref([]);
+        const selectData = ref([]);
         // 获取表格数据
         const getData = () => {
             fetchData(query).then((res) => {
                 tableData.value = res.list;
+                selectData.value = res.select;
             });
         };
         getData();
-        
+        // // 获取城市列表
+        // const getSelectData = () =>{
+        //     fetchSelectData(SelectData).then((res) => {
+        //         selectData.value = res.select;
+        //     })
+        // };
+        // getSelectData();
 
         // 查询操作
         const handleSearch = () => {
@@ -140,6 +168,7 @@ export default {
             tableData,
             editVisible,
             form,
+            selectData,
             handleSearch,
             handlePageChange,
             handleDelete,

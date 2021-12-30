@@ -7,3 +7,12 @@ export const fetchData = query => {
         params: query
     });
 };
+
+// // 获取省份列表
+// export const fetchSelectData = query => {
+//     return request({
+//         url: './table.json',
+//         method: 'get',
+//         params: SelectData
+//     });
+// };

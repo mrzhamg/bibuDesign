@@ -160,5 +160,19 @@
             "states": "次级",
             "hotcity": true
         }
+    ],
+    "select":[
+        {
+            "value":"广东",
+            "label":"广东"
+        },
+        {
+            "value":"湖北",
+            "label":"湖北"
+        },
+        {
+            "value":"福建",
+            "label":"福建"
+        }
     ]
 }
