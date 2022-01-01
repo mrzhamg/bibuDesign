@@ -129,7 +129,7 @@ const routes = [
 ];
 
 const router = createRouter({
-    mode:'history',
+    base:'/admin',
     history: createWebHistory(),
     routes
 });
