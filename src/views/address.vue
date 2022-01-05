@@ -17,7 +17,7 @@
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
             </div>
             <!-- 表单 -->
-            <el-table ref="filterTable" height="867" row-key="date" :data="tableData.slice((query.pageIndex-1)*query.pageSize,query.pageIndex*query.pageSize)" border style="width: 100%">
+            <el-table ref="filterTable"  row-key="date" :data="tableData.slice((query.pageIndex-1)*query.pageSize,query.pageIndex*query.pageSize)" border style="width: 100%">
                 <el-table-column label="序号" type="index"  align="center" style="width:30%"/>
                 
 
