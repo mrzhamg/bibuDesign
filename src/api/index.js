@@ -2,7 +2,7 @@ import request from '../utils/request';
 
 export const fetchData = query => {
     return request({
-        url: 'http://localhost:8080/api/list',
+        url: '/api/list',
         method: 'post',
         data: query
     });
