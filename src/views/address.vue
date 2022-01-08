@@ -91,13 +91,18 @@ export default {
             pageSize: 15,
             active:true
         });
+        const addressData = {
+            pageNum: 1,
+            pageSize: 15,
+            sortType: "asc",
+            sortField: "id",
+        };
         const tableData = ref([]);
         const selectData = ref([]);
         // 获取表格数据
         const getData = () => {
-            fetchData(query).then((res) => {
+            fetchData(addressData).then((res) => {
                 tableData.value = res.list;
-                selectData.value = res.select;
             });
         };
         getData();
@@ -169,6 +174,7 @@ export default {
             editVisible,
             form,
             selectData,
+            addressData,
             handleSearch,
             handlePageChange,
             handleDelete,
