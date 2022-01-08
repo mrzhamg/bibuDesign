@@ -21,24 +21,24 @@
                 <el-table-column label="序号" type="index"  align="center" style="width:30%"/>
                 
 
-                <el-table-column prop="province" label="省级"  align="center" style="width:10%" />
-                <el-table-column prop="city" label="市级"  align="center" style="width:10%" />
-                <el-table-column prop="county" label="区/县"  align="center" style="width:10%" />
+                <el-table-column prop="provincialName" label="省级"  align="center" style="width:10%" />
+                <el-table-column prop="cityName" label="市级"  align="center" style="width:10%" />
+                <el-table-column prop="areaName" label="区/县"  align="center" style="width:10%" />
                 <el-table-column label="热门城市"  align="center" style="width:10%" 
                 :filters="[
-                    { text: '热', value: true },
-                    { text: '冷', value: false },
+                    { text: '热', value: '1' },
+                    { text: '冷', value: '0' },
                 ]"
                 :filter-method="filterTag"
                 filter-placement="bottom-end">
                 <template #default="scope">
                     <!-- <el-tag :type="scope.row.hotcity === '热' ? 'danger' : 'info'" disable-transitions>{{ scope.row.hotcity }}</el-tag> -->
-                    <el-switch v-model="scope.row.hotcity" active-color="#13ce66" ></el-switch>
+                    <el-switch :active-value="1" :inactive-value="0" v-model="scope.row.isHot" active-color="#13ce66" ></el-switch>
                 </template>
                 </el-table-column>
                 <el-table-column label="前台显示/隐藏"  align="center" style="width:10%" >
                 <template  #default="scope">
-                    <el-switch v-model="scope.row.hotcity" active-color="#13ce66"></el-switch>
+                    <el-switch :active-value="1" :inactive-value="0" v-model="scope.row.status" active-color="#13ce66"></el-switch>
                 </template>
                 </el-table-column>
                 <el-table-column label="操作"  align="center" style="width:10%" >
@@ -57,13 +57,13 @@
         <el-dialog title="编辑" v-model="editVisible" width="30%">
             <el-form label-width="70px">
                 <el-form-item label="省">
-                    <el-input v-model="form.province"></el-input>
+                    <el-input v-model="form.provincialName"></el-input>
                 </el-form-item>
                 <el-form-item label="市">
-                    <el-input v-model="form.city"></el-input>
+                    <el-input v-model="form.cityName"></el-input>
                 </el-form-item>
                 <el-form-item label="区/县">
-                    <el-input v-model="form.county"></el-input>
+                    <el-input v-model="form.areaName"></el-input>
                 </el-form-item>
             </el-form>
             <template #footer>
@@ -93,7 +93,7 @@ export default {
         });
         const addressData = {
             pageNum: 1,
-            pageSize: 15,
+            pageSize: 100,
             sortType: "asc",
             sortField: "id",
         };
@@ -102,7 +102,7 @@ export default {
         // 获取表格数据
         const getData = () => {
             fetchData(addressData).then((res) => {
-                tableData.value = res.list;
+                tableData.value = res.content;
             });
         };
         getData();
@@ -141,9 +141,9 @@ export default {
         // 表格编辑时弹窗和保存
         const editVisible = ref(false);
         let form = reactive({
-            province: "",
-            city: "",
-            county: "",
+            provincialName: "",
+            cityName: "",
+            areaName: "",
         });
         let idx = -1;
         const handleEdit = (index, row) => {
