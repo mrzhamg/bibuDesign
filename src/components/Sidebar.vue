@@ -54,38 +54,29 @@ export default {
                 title: "地址管理",
             },
             {
+                icon: "el-icon-lx-sort",
+                index: "",
+                title: "栏目管理",
+                subs: [
+                    {
+                        index: "/partManage",
+                        title: "栏目列表",
+                    },
+                    {
+                        index: "/addpart",
+                        title: "添加栏目",
+                    },
+                ],
+            },
+            {
                 icon: "el-icon-lx-link",
                 index: "/tabs",
                 title: "导航管理",
             },
             {
-                icon: "el-icon-lx-edit",
-                index: "3",
-                title: "内容相关",
-                subs: [
-                    {
-                        index: "/form",
-                        title: "栏目管理",
-                    },
-                    {
-                        index: "/upload",
-                        title: "扩展属性",
-                    },
-                    {
-                        index: "/editor",
-                        title: "内容管理",
-                    },
-                ],
-            },
-            {
                 icon: "el-icon-pie-chart",
                 index: "/charts",
                 title: "医院栏目管理",
-            },
-            {
-                icon: "el-icon-lx-sort",
-                index: "/i18n",
-                title: "栏目管理",
             },
             {
                 icon: "el-icon-lx-share",

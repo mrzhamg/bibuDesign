@@ -3,13 +3,13 @@
         <div class="container">
             <!-- 选择器 -->
             <div class="handle-box">
-                <el-select v-model="query.province" placeholder="省份" class="handle-select mr10">
+                <el-select v-model="tableData.provincialName" placeholder="省份" class="handle-select mr10">
                         <el-option key="1" label="所有省份" value="1"></el-option>
                         <el-option
-                            v-for="item in selectData"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"
+                            v-for="item in tableData"
+                            :key="item.id"
+                            :label="item.provincialName"
+                            :value="item.provincialName"
                             >
                         </el-option>
                 </el-select>
@@ -17,7 +17,7 @@
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
             </div>
             <!-- 表单 -->
-            <el-table ref="filterTable"  row-key="date" :data="tableData.slice((query.pageIndex-1)*query.pageSize,query.pageIndex*query.pageSize)" border style="width: 100%">
+            <el-table ref="filterTable"  row-key="date" :data="tableData" border style="width: 100%">
                 <el-table-column label="序号" type="index"  align="center" style="width:30%"/>
                 
 
@@ -48,8 +48,8 @@
                 </el-table-column>
             </el-table>
             <div class="pagination">
-                    <el-pagination background layout="total, sizes, prev, pager, next" :current-page="query.pageIndex"
-                       :page-sizes="[15, 20, 50, 100]" v-model:page-size="query.pageSize" :total="tableData.length" @current-change="handlePageChange"></el-pagination>
+                    <el-pagination background layout="total, sizes, prev, pager, next" :current-page="addressData.pageNum"
+                       :page-sizes="[15, 20, 50, 100]" v-model:page-size="addressData.pageSize" :total="pageData.totalElements" @current-change="handlePageChange"></el-pagination>
             </div>
         </div>
 
@@ -91,28 +91,25 @@ export default {
             pageSize: 15,
             active:true
         });
+
         const addressData = {
-            pageNum: 1,
-            pageSize: 100,
+            pageNum: 0,
+            pageSize: 15,
             sortType: "asc",
             sortField: "id",
         };
+        //地址表格相关数据
         const tableData = ref([]);
-        const selectData = ref([]);
-        // 获取表格数据
+        //分页相关
+        const pageData = ref([]);
+        // 获取表格数据(分页)
         const getData = () => {
             fetchData(addressData).then((res) => {
                 tableData.value = res.content;
+                // pageData.value = res.sort;
             });
         };
         getData();
-        // // 获取城市列表
-        // const getSelectData = () =>{
-        //     fetchSelectData(SelectData).then((res) => {
-        //         selectData.value = res.select;
-        //     })
-        // };
-        // getSelectData();
 
         // 查询操作
         const handleSearch = () => {
@@ -121,7 +118,7 @@ export default {
         };
         // 分页导航
         const handlePageChange = (val) => {
-            query.pageIndex = val;
+            addressData.pageNum = val;
             getData();
         };
 
@@ -173,8 +170,8 @@ export default {
             tableData,
             editVisible,
             form,
-            selectData,
             addressData,
+            pageData,
             handleSearch,
             handlePageChange,
             handleDelete,

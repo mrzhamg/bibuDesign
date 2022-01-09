@@ -25,12 +25,12 @@ const routes = [
                 },
                 component: () => import ( /* webpackChunkName: "table" */ "../views/BaseTable.vue")
             }, {
-                path: "/charts",
-                name: "basecharts",
+                path: "/partManage",
+                name: "partManage",
                 meta: {
-                    title: '111'
+                    title: '栏目列表'
                 },
-                component: () => import ( /* webpackChunkName: "charts" */ "../views/BaseCharts.vue")
+                component: () => import ( /* webpackChunkName: "partManage" */ "../views/partManage.vue")
             }, {
                 path: "/form",
                 name: "baseform",
@@ -46,12 +46,12 @@ const routes = [
                 },
                 component: () => import ( /* webpackChunkName: "tabs" */ "../views/Tabs.vue")
             }, {
-                path: "/donate",
-                name: "donate",
+                path: "/addpart",
+                name: "addpart",
                 meta: {
-                    title: '鼓励作者'
+                    title: '添加栏目'
                 },
-                component: () => import ( /* webpackChunkName: "donate" */ "../views/Donate.vue")
+                component: () => import ( /* webpackChunkName: "addpart" */ "../views/addpart.vue")
             }, {
                 path: "/permission",
                 name: "permission",
@@ -130,7 +130,7 @@ const routes = [
 
 const router = createRouter({
     history: createWebHashHistory(),
-    base:"/html/amdin/",
+    base:"/amdin/",
     routes
 });
 
