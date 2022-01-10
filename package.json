@@ -16,7 +16,9 @@
     "vue-router": "^4.0.10",
     "vue-schart": "^2.0.0",
     "vuex": "^4.0.2",
-    "wangeditor": "^4.7.4"
+    "vxe-table": "^4.1.19",
+    "wangeditor": "^4.7.4",
+    "xe-utils": "^3.5.2"
   },
   "devDependencies": {
     "vite": "2.3.7",
