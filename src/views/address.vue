@@ -93,10 +93,11 @@ export default {
         });
 
         const addressData = {
-            pageNum: 0,
+            provincialName: "",
+            cityName: "",
+            pageNum: 1,
             pageSize: 15,
-            sortType: "asc",
-            sortField: "id",
+            sortField: "id asc"
         };
         //地址表格相关数据
         const tableData = ref([]);
@@ -105,7 +106,7 @@ export default {
         // 获取表格数据(分页)
         const getData = () => {
             fetchData(addressData).then((res) => {
-                tableData.value = res.content;
+                tableData.value = res.list;
                 // pageData.value = res.sort;
             });
         };

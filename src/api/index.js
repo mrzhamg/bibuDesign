@@ -2,7 +2,7 @@ import request from '../utils/request';
 
 export const fetchData = query => {
     return request({
-        url: '/api/list',
+        url: '/api/address/list',
         method: 'post',
         data: query
     });
