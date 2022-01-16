@@ -7,13 +7,15 @@ export const fetchData = query => {
         data: query
     });
 };
-// export const fetchData = query => {
-//     return request({
-//         url: './table.json',
-//         method: 'get',
-//         params: query
-//     });
-// };
+
+
+export const fetchProvinceData = query => {
+    return request({
+        url: 'api/address/getProvincialList',
+        method: 'post',
+        data: ""
+    });
+};
 // // 获取省份列表
 // export const fetchSelectData = query => {
 //     return request({
