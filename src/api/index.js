@@ -1,5 +1,5 @@
 import request from '../utils/request';
-
+//获取地址列表
 export const fetchData = query => {
     return request({
         url: '/api/address/list',
@@ -8,7 +8,7 @@ export const fetchData = query => {
     });
 };
 
-
+//获取省份列表
 export const fetchProvinceData = query => {
     return request({
         url: 'api/address/getProvincialList',
@@ -16,11 +16,13 @@ export const fetchProvinceData = query => {
         data: ""
     });
 };
-// // 获取省份列表
-// export const fetchSelectData = query => {
-//     return request({
-//         url: './table.json',
-//         method: 'get',
-//         params: SelectData
-//     });
-// };
+
+//修改地址信息
+export const editAddressInfo = query => {
+    return request({
+        url: 'api/address/edit',
+        method: 'post',
+        data: query
+    });
+};
+

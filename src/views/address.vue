@@ -17,28 +17,22 @@
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
             </div>
             <!-- 表单 -->
-            <el-table ref="filterTable"  row-key="date" :data="tableData.list" border style="width: 100%">
+            <el-table ref="filterTable" row-key="date" :data="tableData.list" border style="width: 100%">
                 <el-table-column label="序号" type="index"  align="center" style="width:30%"/>
                 
 
                 <el-table-column prop="provincialName" label="省级"  align="center" style="width:10%" />
                 <el-table-column prop="cityName" label="市级"  align="center" style="width:10%" />
                 <el-table-column prop="areaName" label="区/县"  align="center" style="width:10%" />
-                <el-table-column label="热门城市"  align="center" style="width:10%" 
-                :filters="[
-                    { text: '热', value: '1' },
-                    { text: '冷', value: '0' },
-                ]"
-                :filter-method="filterTag"
-                filter-placement="bottom-end">
+                <el-table-column label="热门城市"  align="center" style="width:10%" >
                 <template #default="scope">
                     <!-- <el-tag :type="scope.row.hotcity === '热' ? 'danger' : 'info'" disable-transitions>{{ scope.row.hotcity }}</el-tag> -->
-                    <el-switch :active-value="1" :inactive-value="0" v-model="scope.row.isHot" active-color="#13ce66" ></el-switch>
+                    <el-switch :active-value="1" :inactive-value="0" v-model="scope.row.isHot" active-color="#13ce66" @click="editAddress(scope.row)"></el-switch>
                 </template>
                 </el-table-column>
                 <el-table-column label="前台显示/隐藏"  align="center" style="width:10%" >
                 <template  #default="scope">
-                    <el-switch :active-value="1" :inactive-value="0" v-model="scope.row.status" active-color="#13ce66"></el-switch>
+                    <el-switch :active-value="1" :inactive-value="0" v-model="scope.row.status" active-color="#13ce66" @click="editAddress(scope.row)"></el-switch>
                 </template>
                 </el-table-column>
                 <el-table-column label="操作"  align="center" style="width:10%" >
@@ -78,8 +72,8 @@
 
 <script>
 import { ref, reactive } from "vue";
-import { ElMessage, ElMessageBox } from "element-plus";
-import { fetchData, fetchProvinceData } from "../api/index";
+import { ElMessage, ElMessageBox,ElNotification } from "element-plus";
+import { editAddressInfo, fetchData, fetchProvinceData } from "../api/index";
 
 export default {
     name: "address",
@@ -91,11 +85,26 @@ export default {
             pageSize: 15,
             active:true
         });
-
+        // 地址实体类变量（修改数据用）
+        const address = {
+            areaCode: "",
+            areaName: "",
+            cityCode: "",
+            cityName: "",
+            id: "",
+            isHot: "",
+            provincialCode: "",
+            provincialName: "",
+            status: ""
+        };
+        //地址列表变量（查询用）
         const addressData = {
+            id:"",
             provincialCode: "",
             provincialName: "",
             cityName: "",
+            ishot:"",
+            status:"",
             pageNum: 1,
             pageSize: 15,
             sortField: "id asc"
@@ -106,7 +115,6 @@ export default {
         const selectCity = ref() ;
         //省份列表
         const provinceListData = ref([]);
-        
         //地址表格相关数据
         const tableData = ref([]);
         //分页相关
@@ -117,6 +125,7 @@ export default {
                 tableData.value = res;
             });
         };
+        //获取省份列表数据
         const getProvinceList = () =>{
               fetchProvinceData().then((res) => {
                 provinceListData.value = res;
@@ -124,7 +133,7 @@ export default {
         }
         getData();
         getProvinceList();
-        //获取省份列表数据
+        
 
 
         // 查询操作
@@ -142,6 +151,19 @@ export default {
             addressData.pageSize = val;
             getData();
         };
+        //修改地址热门和显示状态
+        const editAddress = (row) =>{
+            address.id = row.id
+            address.isHot = row.isHot
+            address.status = row.status
+            editAddressInfo(address).then((res) => {
+                ElNotification({
+                        title: '成功',
+                        message: '修改状态成功！',
+                        type: 'success',
+                    });
+            } );
+        }
 
         // 删除操作
         const handleDelete = (index) => {
@@ -196,11 +218,13 @@ export default {
             provinceListData,
             selectProvince,
             selectCity,
+            address,
             handleSearch,
             handlePageChange,
             handleSizeChange,
             handleDelete,
             handleEdit,
+            editAddress,
             saveEdit,
             filterTag,
             provinceTag,
