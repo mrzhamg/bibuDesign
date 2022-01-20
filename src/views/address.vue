@@ -4,7 +4,7 @@
             <!-- 选择器 -->
             <div class="handle-box">
                 <el-select v-model="selectProvince" placeholder="省份" class="handle-select mr10">
-                        <el-option key="1" label="所有省份" value="1"></el-option>
+                        <el-option key="1" label="所有省份" value=""></el-option>
                         <el-option
                             v-for="item in provinceListData"
                             :key="item.provincialCode"
@@ -13,7 +13,7 @@
                             >
                         </el-option>
                 </el-select>
-                <el-input v-model="query.city" placeholder="市级" class="handle-input mr10"></el-input>
+                <el-input v-model="selectCity" placeholder="市级" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
             </div>
             <!-- 表单 -->
@@ -93,19 +93,19 @@ export default {
         });
 
         const addressData = {
+            provincialCode: "",
             provincialName: "",
             cityName: "",
             pageNum: 1,
             pageSize: 15,
             sortField: "id asc"
         };
-
-        const selectProvince = {
-            // provincialName: "",
-            // cityName: "",
-        }
+        //搜索省份选择
+        const selectProvince = ref();
+        //搜索市级选择
+        const selectCity = ref() ;
         //省份列表
-        const provinceListData = ref([])
+        const provinceListData = ref([]);
         
         //地址表格相关数据
         const tableData = ref([]);
@@ -116,18 +116,21 @@ export default {
             fetchData(addressData).then((res) => {
                 tableData.value = res;
             });
-            fetchProvinceData().then((res) => {
-                provinceListData.value = res;
-            } )
         };
+        const getProvinceList = () =>{
+              fetchProvinceData().then((res) => {
+                provinceListData.value = res;
+            } );
+        }
         getData();
-
+        getProvinceList();
         //获取省份列表数据
 
 
         // 查询操作
         const handleSearch = () => {
-            query.pageIndex = 1;
+            addressData.provincialCode = selectProvince.value;
+            addressData.cityName = selectCity.value;
             getData();
         };
         // 分页导航
@@ -192,6 +195,7 @@ export default {
             pageData,
             provinceListData,
             selectProvince,
+            selectCity,
             handleSearch,
             handlePageChange,
             handleSizeChange,
