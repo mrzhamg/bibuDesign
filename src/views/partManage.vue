@@ -1,4 +1,13 @@
 <template>
+    <div>
+        <div class="crumbs">
+            <el-breadcrumb separator="/">
+                <el-breadcrumb-item>
+                    <i class="el-icon-lx-calendar"></i> 栏目管理
+                </el-breadcrumb-item>
+                <el-breadcrumb-item>栏目列表</el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
         <div class="container">
             <!-- <el-table :data="tableData" style="width: 100%">
                 <el-table-column prop="date" label="编号" width="180" />
@@ -9,19 +18,20 @@
             </el-table> -->
 
         <vxe-table
-          resizable
-          :tree-config="{transform: true, rowField: 'id', parentField: 'parentId'}"
-          :data="tableData1"
-          :checkbox-config="{labelField: 'id', highlight: true}"
-          >
-          <vxe-column type="checkbox" title="编号" width="280" tree-node></vxe-column>
-          <vxe-column field="name" title="栏目名称"></vxe-column>
-          <vxe-column field="size" title="页面模型"></vxe-column>
-          <vxe-column field="type" title="状态"></vxe-column>
-          <vxe-column field="date" title="操作"></vxe-column>
+        resizable
+        :tree-config="{transform: true, rowField: 'id', parentField: 'parentId'}"
+        :data="tableData1"
+        :checkbox-config="{labelField: 'id', highlight: true}"
+        >
+        <vxe-column type="checkbox" title="编号" width="280" tree-node></vxe-column>
+        <vxe-column field="name" title="栏目名称"></vxe-column>
+        <vxe-column field="size" title="页面模型"></vxe-column>
+        <vxe-column field="type" title="状态"></vxe-column>
+        <vxe-column field="date" title="操作"></vxe-column>
         </vxe-table>
 
         </div>
+    </div>
 </template>
 
 <script>
