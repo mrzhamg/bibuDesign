@@ -11,7 +11,7 @@ export const fetchData = query => {
 //获取省份列表
 export const fetchProvinceData = query => {
     return request({
-        url: 'api/address/getProvincialList',
+        url: '/api/address/getProvincialList',
         method: 'post',
         data: ""
     });
@@ -20,7 +20,7 @@ export const fetchProvinceData = query => {
 //修改地址信息
 export const editAddressInfo = query => {
     return request({
-        url: 'api/address/edit',
+        url: '/api/address/edit',
         method: 'post',
         data: query
     });

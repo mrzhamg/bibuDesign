@@ -169,7 +169,7 @@ export default {
         const form = reactive({
             name: "",
             region: "",
-            part:"",
+            part:"bbk1",
             date1: "",
             date2: "",
             delivery: true,

@@ -69,14 +69,14 @@ export default {
                 ],
             },
             {
+                icon: "el-icon-pie-chart",
+                index: "/hospitalManage",
+                title: "医院栏目管理",
+            },
+            {
                 icon: "el-icon-lx-link",
                 index: "/tabs",
                 title: "导航管理",
-            },
-            {
-                icon: "el-icon-pie-chart",
-                index: "/charts",
-                title: "医院栏目管理",
             },
             {
                 icon: "el-icon-lx-share",
