@@ -26,3 +26,11 @@ export const editAddressInfo = query => {
     });
 };
 
+//获取医院栏目列表
+export const fetchHospitalData = query => {
+    return request({
+        url: '/api/hospital/list',
+        method: 'post',
+        data: query
+    });
+};

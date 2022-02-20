@@ -13,7 +13,7 @@
                             >
                         </el-option>
                 </el-select>
-                <el-input v-model="selectCity" placeholder="市级" class="handle-input mr10"></el-input>
+                <el-input v-model="selectName" placeholder="医院名称" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
             </div>
             <!-- 表单 -->
@@ -21,23 +21,14 @@
                 <el-table-column label="序号" type="index"  align="center" style="width:30%"/>
                 
 
-                <el-table-column prop="provincialName" label="省级"  align="center" style="width:10%" />
+                <el-table-column prop="name" label="医院名称"  align="center" style="width:10%" />
                 <el-table-column prop="cityName" label="市级"  align="center" style="width:10%" />
                 <el-table-column prop="areaName" label="区/县"  align="center" style="width:10%" />
-                <el-table-column label="热门城市"  align="center" style="width:10%" >
-                <template #default="scope">
-                    <!-- <el-tag :type="scope.row.hotcity === '热' ? 'danger' : 'info'" disable-transitions>{{ scope.row.hotcity }}</el-tag> -->
-                    <el-switch :active-value="1" :inactive-value="0" v-model="scope.row.isHot" active-color="#13ce66" @click="editAddress(scope.row)"></el-switch>
-                </template>
-                </el-table-column>
-                <el-table-column label="前台显示/隐藏"  align="center" style="width:10%" >
-                <template  #default="scope">
-                    <el-switch :active-value="1" :inactive-value="0" v-model="scope.row.status" active-color="#13ce66" @click="editAddress(scope.row)"></el-switch>
-                </template>
-                </el-table-column>
                 <el-table-column label="操作"  align="center" style="width:10%" >
                     <template #default="scope">
-                        <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)" >修改</el-button>
+                        <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)" >关联</el-button>
+                        <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)" >内容管理</el-button>
+                        <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)" >添加内容</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -73,7 +64,7 @@
 <script>
 import { ref, reactive } from "vue";
 import { ElMessage, ElMessageBox,ElNotification } from "element-plus";
-import { editAddressInfo, fetchData, fetchProvinceData } from "../api/index";
+import { editAddressInfo, fetchHospitalData, fetchProvinceData } from "../api/index";
 
 export default {
     name: "hospitalManage",
@@ -98,13 +89,9 @@ export default {
             status: ""
         };
         //地址列表变量（查询用）
-        const addressData = {
-            id:"",
+        const hospitalData = {
             provincialCode: "",
-            provincialName: "",
-            cityName: "",
-            ishot:"",
-            status:"",
+            name: "",
             pageNum: 1,
             pageSize: 15,
             sortField: "id asc"
@@ -112,7 +99,7 @@ export default {
         //搜索省份选择
         const selectProvince = ref();
         //搜索市级选择
-        const selectCity = ref() ;
+        const selectName = ref() ;
         //省份列表
         const provinceListData = ref([]);
         //地址表格相关数据
@@ -121,7 +108,7 @@ export default {
         const pageData = ref([]);
         // 获取表格数据(分页)
         const getData = () => {
-            fetchData(addressData).then((res) => {
+            fetchHospitalData(hospitalData).then((res) => {
                 tableData.value = res;
             });
         };
@@ -138,17 +125,17 @@ export default {
 
         // 查询操作
         const handleSearch = () => {
-            addressData.provincialCode = selectProvince.value;
-            addressData.cityName = selectCity.value;
+            hospitalData.provincialCode = selectProvince.value;
+            hospitalData.name = selectName.value;
             getData();
         };
         // 分页导航
         const handlePageChange = (val) => {
-            addressData.pageNum = val;
+            hospitalData.pageNum = val;
             getData();
         };
         const handleSizeChange = (val) => {
-            addressData.pageSize = val;
+            hospitalData.pageSize = val;
             getData();
         };
         //修改地址热门和显示状态
@@ -213,11 +200,11 @@ export default {
             tableData,
             editVisible,
             form,
-            addressData,
+            hospitalData,
             pageData,
             provinceListData,
             selectProvince,
-            selectCity,
+            selectName,
             address,
             handleSearch,
             handlePageChange,
