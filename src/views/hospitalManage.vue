@@ -26,7 +26,7 @@
                 <el-table-column prop="areaName" label="区/县"  align="center" style="width:10%" />
                 <el-table-column label="操作"  align="center" style="width:10%" >
                     <template #default="scope">
-                        <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)" >关联</el-button>
+                        <el-button type="text" icon="el-icon-edit" ><router-link to="./addpart">关联</router-link></el-button>
                         <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)" >内容管理</el-button>
                         <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)" >添加内容</el-button>
                     </template>
@@ -39,25 +39,7 @@
         </div>
 
         <!-- 编辑弹出框 -->
-        <el-dialog title="编辑" v-model="editVisible" width="30%">
-            <el-form label-width="70px">
-                <el-form-item label="省">
-                    <el-input v-model="form.provincialName"></el-input>
-                </el-form-item>
-                <el-form-item label="市">
-                    <el-input v-model="form.cityName"></el-input>
-                </el-form-item>
-                <el-form-item label="区/县">
-                    <el-input v-model="form.areaName"></el-input>
-                </el-form-item>
-            </el-form>
-            <template #footer>
-                <span class="dialog-footer">
-                    <el-button @click="editVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="saveEdit">确 定</el-button>
-                </span>
-            </template>
-        </el-dialog>
+        
     </div>
 </template>
 
