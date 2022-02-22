@@ -10,32 +10,36 @@
         </div>
         <div class="container">
             <div class="form-box">
-                <el-form ref="formRef" :rules="rules" :model="form" label-width="140px" label-position="right">
-                    <el-form-item label="地区：" prop="region">
-                        <el-select v-model="form.region" placeholder="请选择">
-                            <el-option key="bbk" label="北京" value="bbk"></el-option>
-                            <el-option key="xtc" label="广东" value="xtc"></el-option>
-                            <el-option key="imoo" label="湖北" value="imoo"></el-option>
+                <el-form ref="formRef" :model="partForm" label-width="140px" label-position="right">
+                    <el-form-item label="地区：">
+                        <el-select v-model="partForm.addressid" placeholder="请选择">
+                            <el-option
+                            v-for="item in provinceListData"
+                            :key="item.provincialCode"
+                            :label="item.provincialName"
+                            :value="item.provincialCode"
+                            >
+                        </el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="栏目名称：" >
-                        <el-input v-model="form.name"></el-input>
+                    <el-form-item label="栏目名称："  prop="name">
+                        <el-input v-model="partForm.name"></el-input>
                     </el-form-item>
-                    <el-form-item label="栏目路径：" >
-                        <el-input v-model="form.name"></el-input>
+                    <el-form-item label="栏目路径：" prop="url">
+                        <el-input v-model="partForm.url"></el-input>
                     </el-form-item>
-                    <el-form-item label="关联标识：" >
+                    <!-- <el-form-item label="关联标识：" >
                         <el-input v-model="form.name"></el-input>
-                    </el-form-item>
-                    <el-form-item label="栏目banner：" >
-                        <el-input v-model="form.name">
+                    </el-form-item> -->
+                    <el-form-item label="自定义图标：" prop="iconUrl">
+                        <el-input v-model="partForm.iconUrl">
                             <template #append>
                                 <el-button type="primary">上传图片</el-button>
                             </template>
                         </el-input>
                     </el-form-item>
 
-                    <el-form-item label="小程序图片（左）：" >
+                    <!-- <el-form-item label="小程序图片（左）：" >
                         <el-input v-model="form.name">
                             <template #append>
                                 <el-button type="primary">上传图片</el-button>
@@ -48,13 +52,18 @@
                                 <el-button type="primary">上传图片</el-button>
                             </template>
                         </el-input>
+                    </el-form-item> -->
+
+                    <el-form-item label="栏目分类：" prop="parentId">
+                        <el-select v-model="partForm.parentId" placeholder="请选择">
+                            <el-option  label="做为一级栏目" value="0"></el-option>
+                            <el-option  label="医院转运" value="1"></el-option>
+                            <el-option  label="康复回家" value="2"></el-option>
+                            <el-option  label="服务优势" value="3"></el-option>
+                        </el-select>
                     </el-form-item>
 
-                    <el-form-item label="栏目分类：" prop="">
-                        <el-cascader ></el-cascader>
-                    </el-form-item>
-
-                    <el-form-item label="模板结构：" >
+                    <el-form-item label="模板结构：" prop="showType">
                         <el-radio-group v-model="showType">
                             <el-radio :label=1>栏目首页</el-radio>
                             <el-radio :label=2>列表页</el-radio>
@@ -62,22 +71,25 @@
                             <el-radio :label=4>无模板</el-radio>
                         </el-radio-group>
                     </el-form-item>
-                    <el-form-item label="内容模型：" >
-                        <el-select v-model="partData.modelId" placeholder="请选择">
-                            <el-option key="bbk1" label="文章模型" value="bbk1"></el-option>
-                            <el-option key="xtc1" label="图片模型" value="xtc1"></el-option>
-                            <el-option key="imoo1" label="其他模型" value="imoo1"></el-option>
+                    <el-form-item label="内容模型：" prop="modelId">
+                        <el-select v-model="partForm.modelId" placeholder="请选择">
+                            <el-option label="文章模型" value="1"></el-option>
+                            <el-option label="产品模型" value="2"></el-option>
+                            <el-option label="单页模型" value="3"></el-option>
+                            <el-option label="图片模型" value="4"></el-option>
+                            <el-option label="视频模型" value="5"></el-option>
+                            <el-option label="文件模型" value="6"></el-option>
                         </el-select>
                     </el-form-item>
 
                     <!-- 通用结构-栏目首页 -->
-                    <el-form-item label="模板：" >
+                    <!-- <el-form-item label="模板：" >
                         <el-select v-model="partData.modelId" placeholder="模板选择">
                             <el-option key="bb1" label="模块1" value="bb1"></el-option>
                             <el-option key="xt1" label="模块2" value="xt1"></el-option>
                             <el-option key="imo1" label="模块3" value="imo1"></el-option>
                         </el-select>
-                    </el-form-item>
+                    </el-form-item> -->
                    <!-- <el-form-item label="手机站：" >
                         <el-select v-model="partData."  placeholder="模板选择">
                             <el-option key="b1" label="模块1" value="b1"></el-option>
@@ -87,27 +99,32 @@
                     </el-form-item> -->
 
                     <!-- 列表页 -->
-                    <el-form-item v-show="showType===2" label="列表页图片自适应：" >
+                    <!-- <el-form-item v-show="showType===2" label="列表页图片自适应：" >
                         <el-select  placeholder="请选择">
                             <el-option key="bk1" label="自适应选择" value="b1"></el-option>
                             <el-option key="tc1" label="图片尺寸相同" value="t1"></el-option>
                             <el-option key="moo1" label="图片裁剪(只显示中间)" value="mo1"></el-option>
                             <el-option key="moo1" label="图片缩放(但会有留白)" value="mo1"></el-option>
                         </el-select>
-                    </el-form-item>
-                    <el-form-item v-show="showType===2" label="分页显示：">
-                        <el-input v-model="partData.pcPage" placeholder="Please input" style="width:300px;margin-bottom:20px">
+                    </el-form-item> -->
+                    <el-form-item v-show="showType===2" label="分页显示：" prop="pcPage"> 
+                        <el-input v-model="partForm.pcPage" placeholder="Please input" style="width:300px" >
                             <template #prepend> PC站分页数</template>
                             <template #append>条</template>
                         </el-input>
-                        <el-input v-model="partData.mobilePage" placeholder="Please input" style="width:300px">
+                    </el-form-item>
+                    <el-form-item v-show="showType===2"  prop="mobilePage"> 
+                        <el-input v-model="partForm.mobilePage" placeholder="Please input" style="width:300px" >
                             <template #prepend>手机站分页数</template>
                             <template #append>条</template>
                         </el-input>
                     </el-form-item>
 
-                    <el-form-item label="文本框"  >
-                        <el-input type="textarea" rows="5" v-model="form.desc"></el-input>
+                    <el-form-item label="栏目简介:"  prop="pcDesc">
+                        <el-input v-model="partForm.pcDesc" type="textarea" rows="5"></el-input>
+                    </el-form-item>
+                    <el-form-item label="操作提示:"  prop="tip">
+                        <el-input v-model="partForm.tip" type="textarea" rows="5"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="onSubmit">表单提交</el-button>
@@ -121,12 +138,18 @@
 
 <script>
 import { reactive, ref } from "vue";
-import { ElMessage } from "element-plus";
+import { ElMessage,ElNotification } from "element-plus";
+import { addPart,fetchProvinceData } from "../api/index";
+
+
 export default {
     name: "addpart",
     setup() {
+        
+        //省份列表
+        const provinceListData = ref([]);
         // 栏目实体
-        const partData = {
+        const partForm = reactive({
             addressid:"",
             name:"",
             subtitle:"",
@@ -134,17 +157,25 @@ export default {
             link:"",
             iconUrl:"",
             pictureUrl:"",
-            parentId:"",
+            parentId:"0",
             modelType:"",
-            modelId:"",
+            modelId:"1",
             recommendPlateId:"",
-            pcPage:"",
-            mobilePage:"",
+            pcPage:"20",
+            mobilePage:"20",
             pcDesc:"",
             mobileDesc:"",
             tip:"",
             status:""
+        });
+        //获取省份列表数据
+        const getProvinceList = () =>{
+              fetchProvinceData().then((res) => {
+                provinceListData.value = res;
+            } );
         }
+        getProvinceList();
+
         //显示类型（模板结构）
         const showType = ref(3);
         const radio = ref(3);
@@ -154,30 +185,31 @@ export default {
                 { required: true, message: "请输入表单名称", trigger: "blur" },
             ],
         };
+        //栏目名称转为拼音url
+        const changePinyin = () =>{
+           partForm.url = Pinyin.getCamelChars(partForm.name); 
+        };
+
         const formRef = ref(null);
-        const form = reactive({
-            name: "",
-            region: "",
-            part:"bbk1",
-            date1: "",
-            date2: "",
-            delivery: true,
-            type: ["步步高"],
-            resource: "小天才",
-            desc: "",
-            options: [],
-        });
         // 提交
         const onSubmit = () => {
+            partForm.modelType = showType;
+            addPart(partForm).then((res) => {
+                onReset();
+                ElNotification({
+                        title: '成功',
+                        message: '添加成功！',
+                        type: 'success',
+                    });
+            } );
             // 表单校验
-            formRef.value.validate((valid) => {
-                if (valid) {
-                    console.log(form);
-                    ElMessage.success("提交成功！");
-                } else {
-                    return false;
-                }
-            });
+            // formRef.value.validate((valid) => {
+            //     if (valid) {
+            //         ElMessage.success("提交成功！");
+            //     } else {
+            //         return false;
+            //     }
+            // });
         };
         // 重置
         const onReset = () => {
@@ -185,15 +217,17 @@ export default {
         };
 
         return {
-            partData,
+            partForm,
             rules,
             formRef,
-            form,
             onSubmit,
             onReset,
             radio,
             activeName,
             showType,
+            provinceListData,
+            getProvinceList,
+            changePinyin
         };
     },
 };

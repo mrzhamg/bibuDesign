@@ -34,3 +34,12 @@ export const fetchHospitalData = query => {
         data: query
     });
 };
+
+//添加栏目
+export const addPart = query => {
+    return request({
+        url: '/api/part/add',
+        method: 'post',
+        data: query
+    });
+};
