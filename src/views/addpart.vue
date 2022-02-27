@@ -23,7 +23,7 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="栏目名称："  prop="name">
-                        <el-input v-model="partForm.name"></el-input>
+                        <el-input v-model="partForm.name" @blur="changePinyin"></el-input>
                     </el-form-item>
                     <el-form-item label="栏目路径：" prop="url">
                         <el-input v-model="partForm.url"></el-input>
@@ -139,8 +139,8 @@
 <script>
 import { reactive, ref } from "vue";
 import { ElMessage,ElNotification } from "element-plus";
-import { addPart,fetchProvinceData } from "../api/index";
-
+import { addPart,fetchProvinceData,getPartList1 } from "../api/index";
+import { pinyin } from 'pinyin-pro';
 
 export default {
     name: "addpart",
@@ -168,6 +168,7 @@ export default {
             tip:"",
             status:""
         });
+        const partList = [];
         //获取省份列表数据
         const getProvinceList = () =>{
               fetchProvinceData().then((res) => {
@@ -175,6 +176,14 @@ export default {
             } );
         }
         getProvinceList();
+
+        //获取栏目列表数据
+        const getPartListData = () => {
+                getPartList1({}),then((res) => {
+                partList.value = res;
+            })
+        }
+        // getPartListData();
 
         //显示类型（模板结构）
         const showType = ref(3);
@@ -187,7 +196,7 @@ export default {
         };
         //栏目名称转为拼音url
         const changePinyin = () =>{
-           partForm.url = Pinyin.getCamelChars(partForm.name); 
+            partForm.url =  pinyin(partForm.name,{ pattern: 'first',toneType: 'none'}).replace(/\s+/g,"");
         };
 
         const formRef = ref(null);
@@ -218,6 +227,7 @@ export default {
 
         return {
             partForm,
+            partList,
             rules,
             formRef,
             onSubmit,
@@ -227,7 +237,8 @@ export default {
             showType,
             provinceListData,
             getProvinceList,
-            changePinyin
+            changePinyin,
+            getPartListData
         };
     },
 };

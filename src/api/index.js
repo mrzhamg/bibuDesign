@@ -35,6 +35,15 @@ export const fetchHospitalData = query => {
     });
 };
 
+//获取所有栏目
+export const getPartList1 = query => {
+    return request({
+        url: '/api/part/list',
+        method: 'post',
+        data: query
+    });
+};
+
 //添加栏目
 export const addPart = query => {
     return request({
