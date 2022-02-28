@@ -20,14 +20,21 @@
         <vxe-table
         resizable
         :tree-config="{transform: true, rowField: 'id', parentField: 'parentId'}"
-        :data="tableData1"
+        :data="partList"
         :checkbox-config="{labelField: 'id', highlight: true}"
         >
         <vxe-column type="checkbox" title="编号" width="280" tree-node></vxe-column>
         <vxe-column field="name" title="栏目名称"></vxe-column>
-        <vxe-column field="size" title="页面模型"></vxe-column>
-        <vxe-column field="type" title="状态"></vxe-column>
-        <vxe-column field="date" title="操作"></vxe-column>
+        <vxe-column field="url" title="访问路径"></vxe-column>
+        <vxe-column field="status" title="状态"></vxe-column>
+        <vxe-column title="操作">
+            <template #default="{}">
+              <vxe-button type="text" status="primary" >修改</vxe-button>
+              <vxe-button type="text" status="primary" >优化</vxe-button>
+              <vxe-button type="text" status="primary" >内容管理</vxe-button>
+              <vxe-button type="text" status="primary" >添加内容</vxe-button>
+            </template>
+        </vxe-column>
         </vxe-table>
 
         </div>
@@ -35,27 +42,22 @@
 </template>
 
 <script>
+import { reactive, ref, getCurrentInstance, nextTick } from "vue";
+import { getPartListData } from "../api/index";
+
 
 export default {
     name: "partManage",
     setup() {
-        // const tableData = [
-        //     {
-        //         date: '2016-05-03',
-        //         name: 'Tom',
-        //         address: 'No. 189, Grove St, Los Angeles',
-        //     },
-        //     {
-        //         date: '2016-05-02',
-        //         name: 'Tom',
-        //         address: 'No. 189, Grove St, Los Angeles',
-        //     },
-        //     {
-        //         date: '2016-05-04',
-        //         name: 'Tom',
-        //         address: 'No. 189, Grove St, Los Angeles',
-        //     },
-        // ]
+        const partList = ref([]);
+        //获取列表数据
+        const getPartAllList = () => {
+            getPartListData({}).then((res) => {
+                partList.value = res;
+            })   
+        }
+        getPartAllList();
+
         const tableData1 = 
             [
                 { id: 10000, parentId: null, name: 'test abc1', type: 'mp3', size: 1024, date: '2020-08-01' },
@@ -80,7 +82,9 @@ export default {
    
 
     return {
+        partList,
         tableData1,
+        getPartAllList,
     };
 }
     

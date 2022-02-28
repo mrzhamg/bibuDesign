@@ -62,6 +62,13 @@ export const getPartList = query => {
         data: query
     });
 };
+export const getPartListData = query => {
+    return request({
+        url: '/api/part/list',
+        method: 'post',
+        data: query
+    });
+};
 
 //添加栏目
 export const addPart = query => {
