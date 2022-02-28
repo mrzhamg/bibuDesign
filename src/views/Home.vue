@@ -8,7 +8,7 @@
                 <router-view v-slot="{ Component }">
                     <transition name="move" mode="out-in">
                         <keep-alive :include="tagsList">
-                            <component :is="Component" />
+                            <component :key="Component" :is="Component" />
                         </keep-alive>
                     </transition>
                 </router-view>

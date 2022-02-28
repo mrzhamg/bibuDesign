@@ -23,7 +23,7 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="栏目名称："  prop="name">
-                        <el-input v-model="partForm.name" @blur="changePinyin"></el-input>
+                        <el-input v-model="partForm.name" @input="changePinyin"></el-input>
                     </el-form-item>
                     <el-form-item label="栏目路径：" prop="url">
                         <el-input v-model="partForm.url"></el-input>
@@ -57,9 +57,13 @@
                     <el-form-item label="栏目分类：" prop="parentId">
                         <el-select v-model="partForm.parentId" placeholder="请选择">
                             <el-option  label="做为一级栏目" value="0"></el-option>
-                            <el-option  label="医院转运" value="1"></el-option>
-                            <el-option  label="康复回家" value="2"></el-option>
-                            <el-option  label="服务优势" value="3"></el-option>
+                            <el-option
+                            v-for="item in partList"
+                            :key="item.id"
+                            :label="item.name"
+                            :value="item.id"
+                            >
+                            </el-option>
                         </el-select>
                     </el-form-item>
 
@@ -137,15 +141,20 @@
 </template>
 
 <script>
-import { reactive, ref } from "vue";
+import { reactive, ref, getCurrentInstance, nextTick } from "vue";
 import { ElMessage,ElNotification } from "element-plus";
-import { addPart,fetchProvinceData,getPartList1 } from "../api/index";
+import { addPart, fetchProvinceData, getPartList, getHospitalById, editHospitalData } from "../api/index";
 import { pinyin } from 'pinyin-pro';
+import { useRouter } from 'vue-router'
+
+
 
 export default {
     name: "addpart",
     setup() {
-        
+        const router = useRouter();
+        const instance = getCurrentInstance();
+        const _this= instance.appContext.config.globalProperties;
         //省份列表
         const provinceListData = ref([]);
         // 栏目实体
@@ -168,7 +177,17 @@ export default {
             tip:"",
             status:""
         });
-        const partList = [];
+        const partList = ref([]);
+        
+        console.log(_this.$route.params.hospital_id)
+
+        //获取栏目列表数据
+        const getPartListData = () => {
+            getPartList().then((res) => {
+                partList.value = res;
+            })   
+        }
+        getPartListData();
         //获取省份列表数据
         const getProvinceList = () =>{
               fetchProvinceData().then((res) => {
@@ -176,15 +195,18 @@ export default {
             } );
         }
         getProvinceList();
-
-        //获取栏目列表数据
-        const getPartListData = () => {
-                getPartList1({}),then((res) => {
-                partList.value = res;
+        //根据医院ID获取需要关联的医院数据
+        const getHospitalData = () =>{
+            getHospitalById(_this.$route.params.hospital_id).then((res) => {  
+                partForm.name = res.name;
+                partForm.addressid = res.provincialCode;
+                partForm.url =  pinyin(partForm.name,{ pattern: 'first',toneType: 'none'}).replace(/\s+/g,"");
             })
         }
-        // getPartListData();
-
+        if(typeof(_this.$route.params.hospital_id) != "undefined"){
+            getHospitalData();
+        }
+        
         //显示类型（模板结构）
         const showType = ref(3);
         const radio = ref(3);
@@ -206,10 +228,21 @@ export default {
             addPart(partForm).then((res) => {
                 onReset();
                 ElNotification({
-                        title: '成功',
-                        message: '添加成功！',
-                        type: 'success',
-                    });
+                    title: '成功',
+                    message: '添加成功！',
+                    type: 'success',
+                });
+                if(typeof(_this.$route.params.hospital_id) != "undefined"){
+                    editHospitalData(
+                    {
+                        id:_this.$route.params.hospital_id,
+                        part_id:res.id,
+                        status:'0'
+                    }
+                    )
+                router.push('/hospitalManage')
+                }
+                
             } );
             // 表单校验
             // formRef.value.validate((valid) => {
@@ -225,6 +258,16 @@ export default {
             formRef.value.resetFields();
         };
 
+        let table = reactive({
+            showTable: true
+        })
+        //使用刷新
+        table.showTable = false
+        nextTick(()=>{
+        //写入操作
+            table.showTable = true
+        })
+
         return {
             partForm,
             partList,
@@ -238,7 +281,8 @@ export default {
             provinceListData,
             getProvinceList,
             changePinyin,
-            getPartListData
+            getPartListData,
+            getHospitalData,
         };
     },
 };

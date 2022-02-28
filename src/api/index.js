@@ -35,10 +35,29 @@ export const fetchHospitalData = query => {
     });
 };
 
-//获取所有栏目
-export const getPartList1 = query => {
+//通过医院id获取单个医院信息
+export const getHospitalById = query => {
     return request({
-        url: '/api/part/list',
+        url: '/api/hospital/get/'+query,
+        method: 'get',
+        data: query
+    }).catch(err=>{
+        console.log(err)
+    })
+};
+//修改医院信息
+export const editHospitalData = query => {
+    return request({
+        url: '/api/hospital/edit',
+        method: 'post',
+        data: query
+    });
+};
+
+//获取所有栏目
+export const getPartList = query => {
+    return request({
+        url: '/api/part/getPartList',
         method: 'post',
         data: query
     });
@@ -50,5 +69,7 @@ export const addPart = query => {
         url: '/api/part/add',
         method: 'post',
         data: query
-    });
+    }).catch(err=>{
+        console.log(err)
+    })
 };
