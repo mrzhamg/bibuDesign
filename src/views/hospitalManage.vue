@@ -27,7 +27,7 @@
                 <el-table-column label="操作"  align="center" style="width:10%" >
                     <template #default="scope">
                         <el-button type="text" icon="el-icon-edit" v-if="scope.row.status == '1'"><router-link v-bind:to="{name:'addpart',params:{hospital_id:scope.row.id}}">关联</router-link></el-button>
-                        <el-button type="text" icon="el-icon-edit" v-if="scope.row.status == '0'" disabled>关联</el-button>
+                        <el-button type="text" icon="el-icon-edit" v-if="scope.row.status == '0'"><router-link v-bind:to="{name:'editPart',params:{hospital_id:scope.row.id}}">修改</router-link></el-button>
                         <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)" >内容管理</el-button>
                         <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)" >添加内容</el-button>
                     </template>

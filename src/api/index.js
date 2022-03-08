@@ -70,10 +70,32 @@ export const getPartListData = query => {
     });
 };
 
+//通过栏目id获取单个栏目信息
+export const getPartById = query => {
+    return request({
+        url: '/api/part/get/'+query,
+        method: 'get',
+        data: query
+    }).catch(err=>{
+        console.log(err)
+    })
+};
+
 //添加栏目
 export const addPart = query => {
     return request({
         url: '/api/part/add',
+        method: 'post',
+        data: query
+    }).catch(err=>{
+        console.log(err)
+    })
+};
+
+//修改栏目
+export const editPart = query => {
+    return request({
+        url: '/api/part/edit',
         method: 'post',
         data: query
     }).catch(err=>{

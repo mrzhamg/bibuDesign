@@ -1,18 +1,10 @@
 <template>
     <div>
-        <div class="crumbs">
-            <el-breadcrumb separator="/">
-                <el-breadcrumb-item>
-                    <i class="el-icon-lx-calendar"></i> 栏目管理
-                </el-breadcrumb-item>
-                <el-breadcrumb-item>添加栏目</el-breadcrumb-item>
-            </el-breadcrumb>
-        </div>
         <div class="container">
             <div class="form-box">
                 <el-form ref="formRef" :model="partForm" label-width="140px" label-position="right">
-                    <el-form-item label="地区：">
-                        <el-select v-model="partForm.addressid" placeholder="请选择">
+                    <!-- <el-form-item label="地区：">
+                        <el-select v-model="partForm.addressId" placeholder="请选择">
                             <el-option
                             v-for="item in provinceListData"
                             :key="item.provincialCode"
@@ -21,7 +13,7 @@
                             >
                         </el-option>
                         </el-select>
-                    </el-form-item>
+                    </el-form-item> -->
                     <el-form-item label="栏目名称："  prop="name">
                         <el-input v-model="partForm.name" @input="changePinyin"></el-input>
                     </el-form-item>
@@ -67,8 +59,8 @@
                         </el-select>
                     </el-form-item>
 
-                    <el-form-item label="模板结构：" prop="showType">
-                        <el-radio-group v-model="showType">
+                    <el-form-item label="模板结构：" prop="modelType">
+                        <el-radio-group v-model="partForm.modelType">
                             <el-radio :label=1>栏目首页</el-radio>
                             <el-radio :label=2>列表页</el-radio>
                             <el-radio :label=3>详情页(单页)</el-radio>
@@ -77,12 +69,13 @@
                     </el-form-item>
                     <el-form-item label="内容模型：" prop="modelId">
                         <el-select v-model="partForm.modelId" placeholder="请选择">
-                            <el-option label="文章模型" value="1"></el-option>
-                            <el-option label="产品模型" value="2"></el-option>
-                            <el-option label="单页模型" value="3"></el-option>
-                            <el-option label="图片模型" value="4"></el-option>
-                            <el-option label="视频模型" value="5"></el-option>
-                            <el-option label="文件模型" value="6"></el-option>
+                        <el-option
+                            v-for="item in modelOptions"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value"
+                            >
+                            </el-option>
                         </el-select>
                     </el-form-item>
 
@@ -111,13 +104,13 @@
                             <el-option key="moo1" label="图片缩放(但会有留白)" value="mo1"></el-option>
                         </el-select>
                     </el-form-item> -->
-                    <el-form-item v-show="showType===2" label="分页显示：" prop="pcPage"> 
+                    <el-form-item v-show="partForm.modelType===2" label="分页显示：" prop="pcPage"> 
                         <el-input v-model="partForm.pcPage" placeholder="Please input" style="width:300px" >
                             <template #prepend> PC站分页数</template>
                             <template #append>条</template>
                         </el-input>
                     </el-form-item>
-                    <el-form-item v-show="showType===2"  prop="mobilePage"> 
+                    <el-form-item v-show="partForm.modelType===2"  prop="mobilePage"> 
                         <el-input v-model="partForm.mobilePage" placeholder="Please input" style="width:300px" >
                             <template #prepend>手机站分页数</template>
                             <template #append>条</template>
@@ -131,8 +124,8 @@
                         <el-input v-model="partForm.tip" type="textarea" rows="5"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="onSubmit">表单提交</el-button>
-                        <el-button @click="onReset">重置表单</el-button>
+                        <el-button type="primary" @click="onSubmit">确认修改</el-button>
+                        <!-- <el-button @click="onReset">重置表单</el-button> -->
                     </el-form-item>
                 </el-form>
             </div>
@@ -143,14 +136,14 @@
 <script>
 import { reactive, ref, getCurrentInstance, nextTick } from "vue";
 import { ElMessage,ElNotification } from "element-plus";
-import { addPart, fetchProvinceData, getPartList, getHospitalById, editHospitalData } from "../api/index";
+import { editPart, getPartById, fetchProvinceData, getPartList, getHospitalById, editHospitalData } from "../api/index";
 import { pinyin } from 'pinyin-pro';
 import { useRouter } from 'vue-router'
 
 
 
 export default {
-    name: "addpart",
+    name: "editPart",
     setup() {
         const router = useRouter();
         const instance = getCurrentInstance();
@@ -159,7 +152,8 @@ export default {
         const provinceListData = ref([]);
         // 栏目实体
         const partForm = reactive({
-            addressid:"",
+            id:"",
+            addressId:"",
             name:"",
             subtitle:"",
             url:"",
@@ -168,8 +162,7 @@ export default {
             pictureUrl:"",
             parentId:"0",
             modelType:"",
-            modelId:"1",
-            recommendPlateId:"",
+            modelId:"",
             pcPage:"20",
             mobilePage:"20",
             pcDesc:"",
@@ -178,7 +171,32 @@ export default {
             status:"1"
         });
         const partList = ref([]);
-        
+        const modelOptions = [
+            {
+                value: 1,
+                label: '文章模型',
+            },
+            {
+                value: 2,
+                label: '产品模型',
+            },
+            {
+                value: 3,
+                label: '单页模型',
+            },
+            {
+                value: 4,
+                label: '图片模型',
+            },
+            {
+                value: 5,
+                label: '视频模型',
+            },
+            {
+                value: 7,
+                label: '文件模型',
+            },
+        ]
         console.log(_this.$route.params.hospital_id)
 
         //获取栏目列表数据
@@ -195,20 +213,57 @@ export default {
             } );
         }
         getProvinceList();
-        //根据医院ID获取需要关联的医院数据
+        //根据医院ID获取需要关联的医院和对应栏目(你可能觉得我写的很蠢，既然你比我聪明，那就拜托你改的更好吧^_^)
         const getHospitalData = () =>{
             getHospitalById(_this.$route.params.hospital_id).then((res) => {  
-                partForm.name = res.name;
-                partForm.addressid = res.provincialCode;
-                partForm.url =  pinyin(partForm.name,{ pattern: 'first',toneType: 'none'}).replace(/\s+/g,"");
+                partForm.id = res.partId;
+                partForm.addressId = res.addressId;
+                getPartById(partForm.id).then((res) => {
+                    partForm.addressId = res.provincialCode,
+                    partForm.name = res.name,
+                    partForm.subtitle = res.subtitle,
+                    partForm.url = res.url,
+                    partForm.link = res.link,
+                    partForm.iconUrl = res.iconUrl,
+                    partForm.pictureUrl = res.pictureUrl,
+                    partForm.parentId = res.parentId,
+                    partForm.modelType = res.modelType,
+                    partForm.modelId = res.modelId,
+                    partForm.pcPage = res.pcPage,
+                    partForm.mobilePage = res.mobilePage,
+                    partForm.pcDesc = res.pcDesc,
+                    partForm.mobileDesc = res.mobileDesc,
+                    partForm.tip = res.tip
+                });
+                // partForm.name = res.name;
+                // partForm.addressid = res.provincialCode;
+                // partForm.url =  pinyin(partForm.name,{ pattern: 'first',toneType: 'none'}).replace(/\s+/g,"");
             })
         }
         if(typeof(_this.$route.params.hospital_id) != "undefined"){
             getHospitalData();
         }
-        
+        if(typeof(_this.$route.params.part_id) != "undefined"){
+            partForm.id = _this.$route.params.part_id;
+             getPartById(partForm.id).then((res) => {
+                    partForm.addressId = res.provincialCode,
+                    partForm.name = res.name,
+                    partForm.subtitle = res.subtitle,
+                    partForm.url = res.url,
+                    partForm.link = res.link,
+                    partForm.iconUrl = res.iconUrl,
+                    partForm.pictureUrl = res.pictureUrl,
+                    partForm.parentId = res.parentId,
+                    partForm.modelType = res.modelType,
+                    partForm.modelId = res.modelId,
+                    partForm.pcPage = res.pcPage,
+                    partForm.mobilePage = res.mobilePage,
+                    partForm.pcDesc = res.pcDesc,
+                    partForm.mobileDesc = res.mobileDesc,
+                    partForm.tip = res.tip
+                });
+        }
         //显示类型（模板结构）
-        const showType = ref(3);
         const radio = ref(3);
         const activeName = ref('first');
         const rules = {
@@ -224,23 +279,25 @@ export default {
         const formRef = ref(null);
         // 提交
         const onSubmit = () => {
-            partForm.modelType = showType;
-            addPart(partForm).then((res) => {
+            editPart(partForm).then((res) => {
                 onReset();
                 ElNotification({
                     title: '成功',
-                    message: '添加成功！',
+                    message: '修改成功！',
                     type: 'success',
                 });
                 if(typeof(_this.$route.params.hospital_id) != "undefined"){
                     editHospitalData(
                     {
                         id:_this.$route.params.hospital_id,
-                        part_id:res.id,
-                        status:'0'
+                        name:res.name,
+                        
                     }
                     )
                 router.push('/hospitalManage')
+                }
+                if(typeof(_this.$route.params.part_id) != "undefined"){
+                    router.push('/partManage')
                 }
                 
             } );
@@ -271,13 +328,13 @@ export default {
         return {
             partForm,
             partList,
+            modelOptions,
             rules,
             formRef,
             onSubmit,
             onReset,
             radio,
             activeName,
-            showType,
             provinceListData,
             getProvinceList,
             changePinyin,

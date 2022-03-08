@@ -53,6 +53,13 @@ const routes = [
                 },
                 component: () => import ( /* webpackChunkName: "addpart" */ "../views/addpart.vue")
             }, {
+                path: "/editPart",
+                name: "editPart",
+                meta: {
+                    title: '修改栏目'
+                },
+                component: () => import ( /* webpackChunkName: "editPart" */ "../views/editPart.vue")
+            }, {
                 path: "/permission",
                 name: "permission",
                 meta: {
