@@ -102,3 +102,14 @@ export const editPart = query => {
         console.log(err)
     })
 };
+
+//删除栏目
+export const deletePartById = query => {
+    return request({
+        url: '/api/part/delete/'+query,
+        method: 'get',
+        data: query
+    }).catch(err=>{
+        console.log(err)
+    })
+};
