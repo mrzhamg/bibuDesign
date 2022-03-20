@@ -54,8 +54,18 @@ export default {
                 title: "地址管理",
             },
             {
+                icon: "el-icon-lx-text",
+                index: "/contentManage",
+                title: "内容管理",
+            },
+            {
+                icon: "el-icon-pie-chart",
+                index: "/hospitalManage",
+                title: "医院栏目管理",
+            },
+            {
                 icon: "el-icon-lx-sort",
-                index: "",
+                index: "part",
                 title: "栏目管理",
                 subs: [
                     {
@@ -69,14 +79,19 @@ export default {
                 ],
             },
             {
-                icon: "el-icon-pie-chart",
-                index: "/hospitalManage",
-                title: "医院栏目管理",
-            },
-            {
                 icon: "el-icon-lx-link",
-                index: "/tabs",
+                index: "menu",
                 title: "导航管理",
+                subs: [
+                    {
+                        index: "/menuManage",
+                        title: "导航列表",
+                    },
+                    {
+                        index: "/addMenu",
+                        title: "添加导航",
+                    },
+                ],
             },
             {
                 icon: "el-icon-lx-share",

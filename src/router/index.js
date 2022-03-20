@@ -42,7 +42,7 @@ const routes = [
                 path: "/tabs",
                 name: "tabs",
                 meta: {
-                    title: '导航管理'
+                    title: '导管理'
                 },
                 component: () => import ( /* webpackChunkName: "tabs" */ "../views/Tabs.vue")
             }, {
@@ -52,6 +52,20 @@ const routes = [
                     title: '添加栏目'
                 },
                 component: () => import ( /* webpackChunkName: "addpart" */ "../views/addpart.vue")
+            }, {
+                path: "/menuManage",
+                name: "menuManage",
+                meta: {
+                    title: '导航管理'
+                },
+                component: () => import ( /* webpackChunkName: "menuManage" */ "../views/menuManage.vue")
+            },{
+                path: "/addMenu",
+                name: "addMenu",
+                meta: {
+                    title: '添加导航'
+                },
+                component: () => import ( /* webpackChunkName: "addMenu" */ "../views/addMenu.vue")
             }, {
                 path: "/editPart",
                 name: "editPart",
@@ -78,7 +92,7 @@ const routes = [
                 path: "/upload",
                 name: "upload",
                 meta: {
-                    title: '内容管理'
+                    title: '内管理'
                 },
                 component: () => import ( /* webpackChunkName: "upload" */ "../views/Upload.vue")
             }, {
@@ -96,12 +110,12 @@ const routes = [
                 },
                 component: () => import (/* webpackChunkName: "404" */ '../views/404.vue')
             }, {
-                path: '/403',
-                name: '403',
+                path: '/contentManage',
+                name: 'contentManage',
                 meta: {
-                    title: '没有权限'
+                    title: '内容管理'
                 },
-                component: () => import (/* webpackChunkName: "403" */ '../views/403.vue')
+                component: () => import (/* webpackChunkName: "contentManage" */ '../views/contentManage.vue')
             }, {
                 path: '/user',
                 name: 'user',
