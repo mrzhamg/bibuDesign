@@ -54,14 +54,24 @@ export default {
                 title: "地址管理",
             },
             {
-                icon: "el-icon-lx-text",
-                index: "/contentManage",
-                title: "内容管理",
-            },
-            {
                 icon: "el-icon-pie-chart",
                 index: "/hospitalManage",
                 title: "医院栏目管理",
+            },
+            {
+                icon: "el-icon-lx-text",
+                index: "content",
+                title: "内容管理",
+                subs: [
+                    {
+                        index: "/contentManage",
+                        title: "内容管理",
+                    },
+                    {
+                        index: "/addcontent",
+                        title: "添加内容",
+                    },
+                ],
             },
             {
                 icon: "el-icon-lx-sort",

@@ -113,3 +113,40 @@ export const deletePartById = query => {
         console.log(err)
     })
 };
+
+//获取导航列表
+export const getMenuData = query => {
+    return request({
+        url: '/api/menu/list',
+        method: 'post',
+        data: query
+    });
+};
+//删除导航
+export const deleteMenuById = query => {
+    return request({
+        url: '/api/menu/delete/'+query,
+        method: 'get',
+        data: query
+    }).catch(err=>{
+        console.log(err)
+    })
+};
+//获取内容列表
+export const getContentData = query => {
+    return request({
+        url: '/api/content/list',
+        method: 'post',
+        data: query
+    });
+};
+//删除内容
+export const deleteContentById = query => {
+    return request({
+        url: '/api/content/delete/'+query,
+        method: 'get',
+        data: query
+    }).catch(err=>{
+        console.log(err)
+    })
+};

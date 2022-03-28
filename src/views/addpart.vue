@@ -236,8 +236,7 @@ export default {
                     editHospitalData(
                     {
                         id:_this.$route.params.hospital_id,
-                        part_id:res.id,
-                        status:'0'
+                        part_id:res.id
                     }
                     )
                 router.push('/hospitalManage')

@@ -77,6 +77,7 @@ export default {
 
         const confirmEvent = async (row) => {
               const type = await VXETable.modal.confirm('您确定要删除 ‘'+row.name+'’ 栏目吗？')
+              console.log(row.id)
               if (type === 'confirm') {
                 deletePartById(row.id)
                 VXETable.modal.message({ content: `删除成功 ${type}`, status: 'success' })

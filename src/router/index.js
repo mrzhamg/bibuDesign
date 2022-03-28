@@ -24,7 +24,7 @@ const routes = [
                     title: '系统设置'
                 },
                 component: () => import ( /* webpackChunkName: "table" */ "../views/BaseTable.vue")
-            }, {
+            },{
                 path: "/partManage",
                 name: "partManage",
                 meta: {
@@ -116,6 +116,13 @@ const routes = [
                     title: '内容管理'
                 },
                 component: () => import (/* webpackChunkName: "contentManage" */ '../views/contentManage.vue')
+            }, {
+                path: "/addcontent",
+                name: "addcontent",
+                meta: {
+                    title: '添加内容'
+                },
+                component: () => import ( /* webpackChunkName: "addcontent" */ "../views/addcontent.vue")
             }, {
                 path: '/user',
                 name: 'user',
