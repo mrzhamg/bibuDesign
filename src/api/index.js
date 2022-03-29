@@ -122,6 +122,22 @@ export const getMenuData = query => {
         data: query
     });
 };
+//修改导航列表
+export const editMenuData = query => {
+    return request({
+        url: '/api/menu/edit',
+        method: 'post',
+        data: query
+    });
+};
+//添加导航列表
+export const addMenuData = query => {
+    return request({
+        url: '/api/menu/add',
+        method: 'post',
+        data: query
+    });
+};
 //删除导航
 export const deleteMenuById = query => {
     return request({
