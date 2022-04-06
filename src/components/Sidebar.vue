@@ -45,7 +45,7 @@ export default {
             },
             {
                 icon: "el-icon-lx-settings",
-                index: "/404",
+                index: "/config",
                 title: "系统设置",
             },
             {

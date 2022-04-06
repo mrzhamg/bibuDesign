@@ -10,13 +10,13 @@
         </div>
         <div class="container">
             <div class="form-box">
-                <el-form ref="formRef" :model="partForm" label-width="140px" >
+                <el-form  :model="contentForm" label-width="140px" >
 
                     <el-form-item label="文章标题："  prop="title">
-                        <el-input ></el-input>
+                        <el-input v-model="contentForm.title"></el-input>
                     </el-form-item>
-                    <el-form-item label="文章分类（栏目）：" prop="parentId">
-                        <el-select  placeholder="请选择">
+                    <el-form-item label="文章分类（栏目）：" prop="partId">
+                        <el-select v-model="contentForm.partId" placeholder="请选择">
                             <el-option
                             v-for="item in partList"
                             :key="item.id"
@@ -27,28 +27,25 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="文章简介：" prop="desc" >
-                        <el-input ></el-input>
+                        <el-input v-model="contentForm.desc"></el-input>
                     </el-form-item>
-                    <el-form-item label="SEO标题：" prop="seo_title">
-                        <el-input ></el-input>
+                    <el-form-item label="SEO标题：" prop="seoTitle">
+                        <el-input v-model="contentForm.seoTitle"></el-input>
                     </el-form-item>
-                    <el-form-item label="SEO关键字：" prop="seo_keyword" >
-                        <el-input ></el-input>
+                    <el-form-item label="SEO关键字：" prop="seoKeyword" >
+                        <el-input v-model="contentForm.seoKeyword"></el-input>
                     </el-form-item>
-                    <el-form-item label="热门关键字：" prop="" >
-                        <el-input ></el-input>
+                    <el-form-item label="热门标签：" prop="label" >
+                        <el-input v-model="contentForm.label"></el-input>
                     </el-form-item>
-                    <el-form-item label="热门关键字：" prop="" >
-                        <el-input ></el-input>
-                    </el-form-item>
-                    <el-form-item label="略缩图：" prop="iconUrl">
-                        <el-input >
+                    <el-form-item label="略缩图：" prop="link">
+                        <el-input v-model="contentForm.link">
                             <template #append>
                                 <el-button type="primary">上传略缩图</el-button>
                             </template>
                         </el-input>
                     </el-form-item>
-                    <el-form-item label="文章推荐：" prop="parentId">
+                    <!-- <el-form-item label="文章推荐：" prop="recommendPlateId">
                         <el-select  placeholder="推荐位置选择">
                             <el-option
                             v-for="item in partList"
@@ -58,10 +55,10 @@
                             >
                             </el-option>
                         </el-select>
-                    </el-form-item>
+                    </el-form-item> -->
 
                     <!-- 富文本编辑器 -->
-                    <el-form-item label="详细内容：" prop="" >
+                    <el-form-item label="详细内容：" >
                         <div class="mgb20" ref='editor'></div>
                     </el-form-item>
                     
@@ -82,7 +79,7 @@
 import WangEditor from "wangEditor"; 
 import { ref, reactive, onMounted, onBeforeUnmount } from "vue";
 import { ElMessage,ElNotification } from "element-plus";
-import { addPart} from "../api/index";
+import { getPartListData,addContent} from "../api/index";
 import { useRouter } from 'vue-router'
 
 
@@ -90,6 +87,31 @@ import { useRouter } from 'vue-router'
 export default {
     name: "addcontent",
     setup() {
+        const router = useRouter();
+        //内容实体
+        const contentForm = reactive({
+            title:"",
+            label:"",
+            partId:"",
+            desc:"",
+            seoTitle:"",
+            seoKeyword:"",
+            link:"",
+            recommendPlateId:"",
+            pcContent:"",
+            createTime:"",
+            updateTime:"",
+        });
+        const partList = ref([]);
+        //获取列表数据
+        const getPartAllList = () => {
+            getPartListData({}).then((res) => {
+                partList.value = res;
+            })   
+        }
+        getPartAllList();
+
+
         const editor = ref(null);
         const content = reactive({
             html: "",
@@ -98,7 +120,7 @@ export default {
         let instance;
         onMounted(() => {
             instance = new WangEditor(editor.value);
-            instance.config.h
+            // instance.config.height = 500;
             instance.config.zIndex = 1;
             instance.create();
         });
@@ -108,14 +130,26 @@ export default {
         });
         const syncHTML = () => {
             content.html = instance.txt.html();
+            content.text = instance.txt.text();
+            contentForm.pcContent = content;
             console.log(content.html);
+            console.log(content.text);
         };
-       
+
+        //获取时间
+       const formatDate = () => {
+            let date = new Date();
+            let year = date.getFullYear(); // 年
+            let month = date.getMonth() + 1; // 月
+            let day = date.getDate(); // 日
+            contentForm.createTime = `${year}/${month}/${day}`;
+            contentForm.updateTime = `${year}/${month}/${day}`;
+        }
         // 提交
         const onSubmit = () => {
-
-            addPart(partForm).then((res) => {
-                onReset();
+            formatDate();
+            syncHTML();
+            addContent(contentForm).then((res) => {
                 ElNotification({
                     title: '成功',
                     message: '添加成功！',
@@ -123,6 +157,8 @@ export default {
                 });
                 
             } );
+            console.log(contentForm);
+            router.push('/contentManage');
             // 表单校验
             // formRef.value.validate((valid) => {
             //     if (valid) {
@@ -137,9 +173,15 @@ export default {
 
 
         return {
+            router,
+            contentForm,
+            partList,
+            onSubmit,
             syncHTML,
             editor,
             content,
+            getPartAllList,
+            formatDate,
         };
     },
 };

@@ -33,10 +33,10 @@
             <!-- 编辑弹出框 -->
             <el-dialog title="编辑" v-model="editVisible" width="30%">
                 <el-form label-width="70px">
-                    <el-form-item label="显示姓名">
-                        <el-input v-model="form.name"></el-input>
+                    <el-form-item label="名称：">
+                        <el-input v-model="form.name" @input="changePinyin"></el-input>
                     </el-form-item>
-                    <el-form-item label="链接">
+                    <el-form-item label="链接：">
                         <el-input v-model="form.url"></el-input>
                     </el-form-item>
                 </el-form>
@@ -57,7 +57,7 @@ import { ElMessage } from "element-plus";
 import { deleteMenuById, getMenuData,editMenuData } from "../api/index";
 import { useRouter } from 'vue-router'
 import VXETable from 'vxe-table'
-
+import { pinyin } from 'pinyin-pro';
 
 export default {
     name: "menuManage",
@@ -71,7 +71,7 @@ export default {
             })   
         }
         getMenuListData();
-
+        
         
 
         VXETable.formats.mixin({
@@ -88,7 +88,7 @@ export default {
                     });
             }else{
                 editMenuData({id:row.id,status:1}).then((res) =>{
-                
+                location.reload();
             });
             }
         }
@@ -111,6 +111,12 @@ export default {
             name: "",
             url: "",
         });
+
+        //名称转为拼音url
+        const changePinyin = () =>{
+            form.url = "/" + pinyin(form.name,{ pattern: 'first',toneType: 'none'}).replace(/\s+/g,"");
+        };
+
         const handleEdit = (row) => {
             form.id = row.id;
             form.name = row.name;
@@ -135,6 +141,7 @@ export default {
         saveEdit,
         getMenuListData,
         confirmEvent,
+        changePinyin,
     };
 }
     

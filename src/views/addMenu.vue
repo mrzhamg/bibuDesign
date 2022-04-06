@@ -12,7 +12,7 @@
             <div class="form-box">
                 <el-form ref="formRef" :model="form"  label-position="right">
                     <el-form-item label="导航名称："  prop="name" >
-                        <el-input v-model="form.name"></el-input>
+                        <el-input v-model="form.name" @input="changePinyin"></el-input>
                     </el-form-item>
                     <el-form-item label="添加rel属性：" prop="url">
                         <el-input v-model="form.subtitle"></el-input>
@@ -30,7 +30,7 @@
                         </el-select>
                     </el-form-item> -->
                         <el-form-item label="访问链接：" prop="url">
-                        <el-input v-model="form.url"></el-input>
+                        <el-input v-model="form.url" ></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="onSubmit">表单提交</el-button>
@@ -58,9 +58,14 @@ export default {
         const form = reactive({
             name:"",
             subtitle:"",
-            url:"/",
+            url:"",
             status:0
         })
+
+        //名称转为拼音url
+        const changePinyin = () =>{
+            form.url = "/" + pinyin(form.name,{ pattern: 'first',toneType: 'none'}).replace(/\s+/g,"");
+        };
 
         const formRef = ref(null);
         // 提交
@@ -90,7 +95,8 @@ export default {
             router,
             form,
             onSubmit,
-            onReset
+            onReset,
+            changePinyin
         };
     },
 };

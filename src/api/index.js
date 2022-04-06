@@ -156,6 +156,25 @@ export const getContentData = query => {
         data: query
     });
 };
+
+//添加内容
+export const addContent = query => {
+    return request({
+        url: '/api/content/add',
+        method: 'post',
+        data: query
+    });
+};
+
+//修改内容
+export const editContent = query => {
+    return request({
+        url: '/api/content/edit',
+        method: 'post',
+        data: query
+    });
+};
+
 //删除内容
 export const deleteContentById = query => {
     return request({

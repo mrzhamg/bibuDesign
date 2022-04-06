@@ -13,9 +13,10 @@
         >
         <vxe-column type="checkbox" title="编号" width="280" tree-node></vxe-column>
         <vxe-column field="name" title="排序"></vxe-column>
-        <vxe-column field="url" title="显示名称"></vxe-column>
-        <vxe-column field="status" title="系统模块"></vxe-column>
-        <vxe-column field="status" title="链接"></vxe-column>
+        <vxe-column field="url" title="标题"></vxe-column>
+        <vxe-column field="status" title="栏目/分类"></vxe-column>
+        <vxe-column field="status" title="添加时间"></vxe-column>
+        <vxe-column field="status" title="更新时间"></vxe-column>
         <vxe-column field="status" title="状态"></vxe-column>
         <vxe-column title="操作" width="400">
             <template #default="{row}">
@@ -51,10 +52,7 @@ export default {
         }
         getPartAllList();
 
-        //跳转到栏目修改页面并传id值
-        const pushToEditPart = (row) => {
-            router.push({name:'editPart',params:{part_id:row.id}})
-        }
+        
 
         VXETable.formats.mixin({
           // 格式化状态
@@ -80,7 +78,6 @@ export default {
     return {
         partList,
         getPartAllList,
-        pushToEditPart,
         confirmEvent,
     };
 }

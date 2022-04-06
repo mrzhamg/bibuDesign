@@ -18,12 +18,12 @@ const routes = [
                 },
                 component: () => import ( /* webpackChunkName: "dashboard" */ "../views/Dashboard.vue")
             }, {
-                path: "/table",
-                name: "basetable",
+                path: "/config",
+                name: "config",
                 meta: {
                     title: '系统设置'
                 },
-                component: () => import ( /* webpackChunkName: "table" */ "../views/BaseTable.vue")
+                component: () => import ( /* webpackChunkName: "config" */ "../views/config.vue")
             },{
                 path: "/partManage",
                 name: "partManage",
