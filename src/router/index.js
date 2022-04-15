@@ -153,7 +153,27 @@ const routes = [
             title: '登录'
         },
         component: () => import ( /* webpackChunkName: "login" */ "../views/Login.vue")
-    }
+    },{
+        // 前台路由
+        path: "/index",
+        name: 'index',
+        component: () => import("../views/index/index.vue"),
+        children:[{
+            path: '/home',
+            name: 'home',
+            meta: {
+                title:'首页'
+            },
+            component: () => import ("../views/index/home.vue")
+        },{
+            path: '/lanmu1',
+            name: 'lanmu1',
+            meta: {
+                title: '栏目1'
+            },
+            component: () => import ("../views/index/lanmu1.vue")
+        }]
+        }
 ];
 
 const router = createRouter({

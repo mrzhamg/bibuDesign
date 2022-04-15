@@ -1,4 +1,15 @@
 import request from '../utils/request';
+
+//获取城市列表
+export const getCityData = query => {
+    return request({
+        url: '/api/address/getCityList',
+        method: 'post',
+        data: query
+    });
+};
+
+
 //获取地址列表
 export const fetchData = query => {
     return request({
