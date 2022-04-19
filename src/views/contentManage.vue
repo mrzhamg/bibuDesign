@@ -10,13 +10,15 @@
         </div>
         <div class="container">
         <vxe-table
+        :data="contentList"
         >
-        <vxe-column type="checkbox" title="编号" width="280" tree-node></vxe-column>
-        <vxe-column field="name" title="排序"></vxe-column>
-        <vxe-column field="url" title="标题"></vxe-column>
-        <vxe-column field="status" title="栏目/分类"></vxe-column>
-        <vxe-column field="status" title="添加时间"></vxe-column>
-        <vxe-column field="status" title="更新时间"></vxe-column>
+        <vxe-column type="checkbox" field="id" title="编号" width="280" tree-node></vxe-column>
+        <vxe-column field="sort" title="排序"></vxe-column>
+        <vxe-column field="title" title="标题"></vxe-column>
+        <vxe-column field="part_id" title="栏目/分类"></vxe-column>
+        <vxe-column field="view_count" title="浏览"></vxe-column>
+        <vxe-column field="create_time" title="添加时间"></vxe-column>
+        <vxe-column field="update_time" title="更新时间"></vxe-column>
         <vxe-column field="status" title="状态"></vxe-column>
         <vxe-column title="操作" width="400">
             <template #default="{row}">
@@ -34,7 +36,7 @@
 
 <script>
 import { reactive, ref, getCurrentInstance, nextTick } from "vue";
-import { getPartListData, deletePartById, editHospitalData } from "../api/index";
+import {  getContentData } from "../api/index";
 import { useRouter } from 'vue-router'
 import VXETable from 'vxe-table'
 import XEUtils from 'xe-utils'
@@ -43,14 +45,35 @@ export default {
     name: "contentManage",
     setup() {
         const router = useRouter();
-        const partList = ref([]);
+        const contentList = ref([]);
+        //内容实体
+        const contentForm = reactive({
+            title:"",
+            label:"",
+            partId:"",
+            desc:"",
+            seoTitle:"",
+            seoKeyword:"",
+            link:"",
+            recommendPlateId:"",
+            pcContent:"",
+            createTime:"",
+            updateTime:"",
+        });
+        const content = {
+            cityName:"东",
+            pageNum:1,
+            pageSize:15,
+            sortField:"id desc"
+            }
+
         //获取列表数据
-        const getPartAllList = () => {
-            getPartListData({}).then((res) => {
-                partList.value = res;
+        const getContentList = () => {
+            getContentData(content).then((res) => {
+                contentList.value = res;
             })   
         }
-        getPartAllList();
+        getContentList();
 
         
 
@@ -76,9 +99,11 @@ export default {
 
 
     return {
-        partList,
-        getPartAllList,
+        contentForm,
+        contentList,
+        content,
         confirmEvent,
+        getContentList,
     };
 }
     

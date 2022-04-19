@@ -105,7 +105,7 @@ export default {
         const partList = ref([]);
         //获取列表数据
         const getPartAllList = () => {
-            getPartListData({}).then((res) => {
+            getPartListData(contentForm).then((res) => {
                 partList.value = res;
             })   
         }
@@ -130,8 +130,7 @@ export default {
         });
         const syncHTML = () => {
             content.html = instance.txt.html();
-            content.text = instance.txt.text();
-            contentForm.pcContent = content;
+            contentForm.pcContent = content.html;
             console.log(content.html);
             console.log(content.text);
         };
@@ -142,8 +141,8 @@ export default {
             let year = date.getFullYear(); // 年
             let month = date.getMonth() + 1; // 月
             let day = date.getDate(); // 日
-            contentForm.createTime = `${year}/${month}/${day}`;
-            contentForm.updateTime = `${year}/${month}/${day}`;
+            // contentForm.createTime = `${year}/${month}/${day}`;
+            // contentForm.updateTime = `${year}/${month}/${day}`;
         }
         // 提交
         const onSubmit = () => {
