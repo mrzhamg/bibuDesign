@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { fetchProvinceData, getCityData } from '../../api/index'
 import { ElMessage } from "element-plus";
 export default {
@@ -95,22 +95,22 @@ export default {
     }
 
     function searchData () {
-      let dataList = ref([])
+      const dataList = reactive([])
       provinceList.value.forEach(item => {
         item.chlidren.forEach(item1 => {
           if (searchInput.value === item1.cityName || searchInput.value === item1.provincialName) {
-            dataList.value.push(item)
+            dataList.push(item)
           } else {
             dataList.value = ''
           }
         })
       })
-      return dataList.value
+      return dataList
     }
 
     function searchJieGuo () {
-      if (searchData()) {
-        provinceList1.value = searchData()
+      if (searchData()[0]) {
+        provinceList1.value.push(searchData()[0])
       } else {
         ElMessage.error('无搜索结果！')
       }
