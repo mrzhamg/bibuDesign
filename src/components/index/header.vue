@@ -69,7 +69,7 @@ export default {
 <style lang="less" scoped>
 .header {
   width: 100%;
-  height: 90px;
+  height: 120px;
   background-color: #fff;
   overflow: hidden;
   border-bottom: 2px solid #e70012;
@@ -87,9 +87,10 @@ export default {
       display: flex;
       align-items: center;
       .logo {
-        width: 150px;
+        width: 120px;
         height: 100%;
-        background: url(../../assets/img/logo.png) no-repeat center center;
+        background: url(../../assets/img/bibu.200.png) no-repeat center center;
+        background-size: 100%;
       }
       .name {
         height: 60px;

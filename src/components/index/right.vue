@@ -108,6 +108,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
 import { onMounted, onUnmounted, ref } from '@vue/runtime-core'
 export default {
   name: 'right',
@@ -116,7 +117,8 @@ export default {
     let isTotop = ref(false)
     let scrollTop1 = ref('')
     function toTop () {
-      scrollTop1.value.target.scrollTop = 0
+      // scrollTop1.value.target.scrollTop = 0
+      $(scrollTop1.value.target).stop(true).animate({scrollTop:0})
     }
     onMounted(() => {
       window.addEventListener("scroll", (e) => {
