@@ -132,7 +132,7 @@ export default {
 
     })
     onUnmounted(() => {
-      window.removeEventListener("scroll")
+      window.removeEventListener("scroll",(e)=>{})
     })
     return {
       r_img,
