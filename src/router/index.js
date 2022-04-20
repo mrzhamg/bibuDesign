@@ -165,15 +165,20 @@ const routes = [
                 title:'首页'
             },
             component: () => import ("../views/index/home.vue")
-        },{
-            path: '/lanmu1',
-            name: 'lanmu1',
-            meta: {
-                title: '栏目1'
-            },
-            component: () => import ("../views/index/lanmu1.vue")
         }]
-        }
+     },{
+        path: "/",
+        name: "lanmu",
+        component: () => import("../views/lanmu/index.vue"),
+        children: [{
+            path: '/lanmu/:city',
+            name: 'city',
+            meta: {
+                title:'城市首页'
+            },
+            component: () => import ("../views/lanmu/cityHome.vue")
+        }]
+    }
 ];
 
 const router = createRouter({
