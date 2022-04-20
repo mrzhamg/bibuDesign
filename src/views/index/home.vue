@@ -110,7 +110,7 @@ export default {
 
     function searchJieGuo () {
       if (searchData()[0]) {
-        console.log(searchData()[0])
+        // console.log(searchData()[0])
         provinceList1.value.push(searchData()[0])
       } else {
         ElMessage.error('无搜索结果！')
