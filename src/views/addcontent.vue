@@ -185,3 +185,7 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.form-box{width: 100%;}
+</style>
