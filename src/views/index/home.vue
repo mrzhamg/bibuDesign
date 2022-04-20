@@ -31,7 +31,7 @@
         <div>{{i.provincialName}}</div>
         <ul>
           <li v-for="j in i.chlidren"
-              :key="j.index"><a href="">{{j.cityName}}</a></li>
+              :key="j.index"><router-link :to="'/lm/' + j.cityName">{{j.cityName}}</router-link></li>
         </ul>
       </li>
       <li v-show="!isprovinceList"
@@ -40,7 +40,7 @@
         <div>{{i.provincialName}}</div>
         <ul>
           <li v-for="j in i.chlidren"
-              :key="j.index"><a href="">{{j.cityName}}</a></li>
+              :key="j.index"><router-link :to="'/lm/' + j.cityName">{{j.cityName}}</router-link></li>
         </ul>
       </li>
     </ul>
