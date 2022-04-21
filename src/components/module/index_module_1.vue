@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="r">
-        <img src="" alt="">
+        <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fstatic.hebtv.com%2Fuploads%2F520_24763%2F202110%2Fb12e181edb412cbaf27eba81cb0c76db.jpg&refer=http%3A%2F%2Fstatic.hebtv.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1653112022&t=07fc77b6d5136e515abce3a6564da1f5" alt="">
       </div>
     </div>
     <div style="clear: both;"></div>
@@ -37,7 +37,7 @@ let getRemark = ()=>{
 }
 getRemark()
 onMounted(()=>{
-  $('.index_module_1 .content1 .r').height($('.index_module_1 .content1 .l').height())
+  $('.index_module_1 .content1 .r').height($('.index_module_1 .content1 .l').height()> 450 ? 450:$('.index_module_1 .content1 .l').height())
 })
 </script>
 
