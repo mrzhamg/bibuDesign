@@ -1,6 +1,7 @@
 <template>
   <div class="lanmu">
-    <lanmu-header-box/>
+    <leader-box/>
+    <lanmu-nav-box/>
     <div class="mian">
       <router-view></router-view>
     </div>
@@ -10,15 +11,19 @@
 </template>
 
 <script>
-import LanmuHeaderBox from '../../components/index/lanmuHeader.vue'
-// import RightBox from '../../components/index/right.vue'
+import LeaderBox from '../../components/index/header.vue'
+import LanmuNavBox from '../../components/index/lanmuNav.vue'
+import RightBox from '../../components/index/right.vue'
 import FooterBox from '../../components/index/footer.vue'
+import Header from '../../components/Header.vue'
 export default {
   name:'lanmuView',
   components:{
-    LanmuHeaderBox,
+    LeaderBox,
+    LanmuNavBox,
     FooterBox,
-    // RightBox
+    Header,
+    RightBox
   }
 }
 </script>

@@ -73,7 +73,7 @@ export default {
   background-color: #fff;
   overflow: hidden;
   border-bottom: 2px solid #e70012;
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
   .contentBox {
     width: 1200px;
     height: 100%;
