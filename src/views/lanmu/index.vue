@@ -10,22 +10,13 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import LeaderBox from '../../components/index/header.vue'
 import LanmuNavBox from '../../components/index/lanmuNav.vue'
 import RightBox from '../../components/index/right.vue'
 import FooterBox from '../../components/index/footer.vue'
 import Header from '../../components/Header.vue'
-export default {
-  name:'lanmuView',
-  components:{
-    LeaderBox,
-    LanmuNavBox,
-    FooterBox,
-    Header,
-    RightBox
-  }
-}
+
 </script>
 
 <style scoped>
