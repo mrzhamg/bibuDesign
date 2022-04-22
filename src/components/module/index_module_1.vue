@@ -42,7 +42,7 @@ onMounted(()=>{
 </script>
 
 <style scoped>
-.index_module_1{width: 100%;background-color: #fff;}
+.index_module_1{width: 100%;background-color: #fff;margin-bottom: 50px;}
 .index_module_1 .content1{width: 1200px;margin: 40px auto 0;}
 .index_module_1 .content1 .l{float: left;width: 580px;box-shadow: 0 0 6px 3px rgba(0, 0, 0, 0.1);}
 .index_module_1 .content1 .title{display: flex;height: 60px;padding: 0 20px;line-height: 60px; border-bottom: 2px solid #eee;}

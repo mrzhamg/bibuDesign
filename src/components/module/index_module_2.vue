@@ -101,7 +101,7 @@ let index_module_2_DataList = reactive(
 </script>
 
 <style scoped>
-.index_module_2{width: 100%;background-color: #fff;}
+.index_module_2{width: 100%;background-color: #fff;margin-bottom: 50px;}
 .index_module_2 .content1{width: 1200px;margin: 40px auto 0;} 
 /deep/.el-carousel__button{background-color: #c40000;}
 .list li{width: 285px; float: left;margin-right: 20px;margin-bottom: 20px;}
