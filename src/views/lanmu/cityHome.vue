@@ -1,24 +1,18 @@
 <template>
   <div class="cityhome">
     <div class="content1">
-      <!-- {{$route.params.city}} -->
+      {{$route.params.city}}
     </div>
+    <module-3/>
     <module-2/>
     <module-1/>
   </div>
 </template>
 
-<script>
+<script setup>
+import Module3 from '../../components/module/index_module_3.vue'
 import Module2 from '../../components/module/index_module_2.vue'
 import Module1 from '../../components/module/index_module_1.vue'
-export default {
-  name: 'cityhome',
-  components:{
-    Module1,
-    Module2
-  }
-  
-}
 </script>
 
 <style scoped>
