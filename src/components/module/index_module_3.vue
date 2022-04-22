@@ -21,9 +21,15 @@
           <img src="https://pic.letsfun.cn/pic/101460/al-img1.jpg" alt="">
           <p><span>常见问题</span><span>MORE+</span></p>
         </div>
-        <swiper :direction="'vertical'"
-        :autoplay="{delay:1000}"
+        <swiper :direction="'vertical'" ref="swiperBox"
+        :autoplay="{
+          delay:1000,
+          disableOnInteraction: true,
+        }"
         slidesPerView="auto"
+        @swiper="onSwiper"
+        @mouseenter.native="onSwiperEnter"
+        @mouseleave.native="onSwiperLeave"
         >
           <swiper-slide v-for="item in zx_list" :key="item.index">
             <router-link to="/">
@@ -44,10 +50,13 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 SwiperCore.use([Autoplay,EffectCoverflow, A11y]);
 import { reactive } from '@vue/reactivity'
 import TitleBox from './title_module.vue'
+import { getCurrentInstance } from "@vue/runtime-core";
+const {proxy} = getCurrentInstance()
 let title = reactive({
   title:'标题标题标题',
   subTitle:'标题标题标题',
 })
+
 let zx_list = reactive([
   {title:'标题标题标题标题标题标题标题标题标题标题标题标题',subTitle:'标题标题标题标题标题标题标题标题标题标题标题标题',createTime:'2022/04/22'},
   {title:'标题标题标题标题标题标题标题标题标题标题标题标题',subTitle:'标题标题标题标题标题标题标题标题标题标题标题标题',createTime:'2022/04/22'},
@@ -62,7 +71,9 @@ let zx_list = reactive([
   {title:'标题标题标题标题标题标题标题标题标题标题标题标题',subTitle:'标题标题标题标题标题标题标题标题标题标题标题标题',createTime:'2022/04/22'},
   {title:'标题标题标题标题标题标题标题标题标题标题标题标题',subTitle:'标题标题标题标题标题标题标题标题标题标题标题标题',createTime:'2022/04/22'}
   ])
-
+let onSwiper = (swiper)=>{}
+let onSwiperEnter = (swiper)=>{swiper.target.swiper.autoplay.stop()}
+let onSwiperLeave = (swiper)=>{swiper.target.swiper.autoplay.start()}
 </script>
 
 <style scoped>
@@ -107,7 +118,7 @@ object-fit: cover;object-position: center;
 .index_module_3 .content1 div.right .swiper{height: 200px;}
 .index_module_3 .content1 div.right .swiper::v-deep .swiper-slide{height: 90px !important;border-bottom: 1px dashed #888;padding: 10px 0;}
 .index_module_3 .content1 div.right .swiper .swiper-slide a p{font-size: 16px;padding: 0px 10px;display: flex;margin: 5px 0;}
-.index_module_3 .content1 div.right .swiper .swiper-slide a p:nth-of-type(1){justify-content: space-between;align-items: center;}
+.index_module_3 .content1 div.right .swiper .swiper-slide a p:nth-of-type(1){color: black; justify-content: space-between;align-items: center;}
 .index_module_3 .content1 div.right .swiper .swiper-slide a p:nth-of-type(1) span:nth-of-type(1){display: inline-block;width: 200px;
 display: -webkit-box;
 -webkit-line-clamp: 1;
@@ -117,5 +128,5 @@ overflow: hidden;
 .index_module_3 .content1 div.right .swiper .swiper-slide a p:nth-of-type(1) i,
 .index_module_3 .content1 div.right .swiper .swiper-slide a p:nth-of-type(2) i{display: inline-block;width: 30px;height: 30px;line-height: 30px;background-color: #c40000;text-align: center;color: #fff;border-radius: 5px;margin-right: 10px;}
 .index_module_3 .content1 div.right .swiper .swiper-slide a p:nth-of-type(1) i{background-color: #888;}
-.index_module_3 .content1 div.right .swiper .swiper-slide a p:nth-of-type(2) span{flex: 1;line-height: 28px;}
+.index_module_3 .content1 div.right .swiper .swiper-slide a p:nth-of-type(2) span{flex: 1;line-height: 28px;color: #888;}
 </style>

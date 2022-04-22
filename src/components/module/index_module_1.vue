@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import $ from 'jquery'
+import jquery from 'jquery'
 import { onMounted, reactive, ref } from 'vue'
 import TitleBox from './title_module.vue'
 let title = reactive({
@@ -37,7 +37,7 @@ let getRemark = ()=>{
 }
 getRemark()
 onMounted(()=>{
-  $('.index_module_1 .content1 .r').height($('.index_module_1 .content1 .l').height()> 450 ? 450:$('.index_module_1 .content1 .l').height())
+  jquery('.index_module_1 .content1 .r').height(jquery('.index_module_1 .content1 .l').height()> 450 ? 450:jquery('.index_module_1 .content1 .l').height())
 })
 </script>
 
