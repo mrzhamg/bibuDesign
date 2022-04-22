@@ -3,6 +3,7 @@
     <div class="content1">
       {{$route.params.city}}
     </div>
+    <module-4/>
     <module-3/>
     <module-2/>
     <module-1/>
@@ -10,6 +11,7 @@
 </template>
 
 <script setup>
+import Module4 from '../../components/module/index_module_4.vue'
 import Module3 from '../../components/module/index_module_3.vue'
 import Module2 from '../../components/module/index_module_2.vue'
 import Module1 from '../../components/module/index_module_1.vue'
