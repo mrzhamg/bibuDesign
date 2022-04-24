@@ -1,7 +1,7 @@
 <template>
   <div class="cityhome">
     <div class="content1">
-      {{$route.params.city}}
+      <!-- {{$route.params.city}} -->
     </div>
     <module-5/>
     <module-4/>
