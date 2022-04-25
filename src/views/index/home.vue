@@ -31,7 +31,7 @@
         <div>{{i.provincialName}}</div>
         <ul>
           <li v-for="j in i.chlidren"
-              :key="j.index"><router-link :to="'/lanmu/'+j.cityName">{{j.cityName}}</router-link></li>
+              :key="j.index"><el-link :underline="false" :href="'/#/lanmu/'+j.cityName">{{j.cityName}}</el-link></li>
         </ul>
       </li>
       <li v-show="!isprovinceList"
@@ -40,7 +40,7 @@
         <div>{{i.provincialName}}</div>
         <ul>
           <li v-for="j in i.chlidren"
-              :key="j.index"><router-link :to="'/lanmu/'+j.cityName">{{j.cityName}}</router-link></li>
+              :key="j.index"><el-link :underline="false" :href="'/#/lanmu/'+j.cityName">{{j.cityName}}</el-link></li>
         </ul>
       </li>
     </ul>
@@ -197,6 +197,7 @@ export default {
 .home > ul > li > ul > li a {
   color: #888;
 }
+.home > ul > li > ul > li:hover a{color: #ff0000;}
 .home .ul-hot li:nth-of-type(1) {
   position: relative;
 }

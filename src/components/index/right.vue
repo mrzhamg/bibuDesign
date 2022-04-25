@@ -25,7 +25,7 @@
                   fill="#ffffff"
                   p-id="30963"></path>
           </svg></i>
-        <div class="toTop">回到顶部</div>
+        <div class="toTop1">回到顶部</div>
       </li>
       <li>
         <i>
@@ -153,11 +153,12 @@ export default {
   z-index: 999;
   ul {
     li:nth-of-type(2) {
-      overflow: hidden;
+      opacity: 0;
       height: 0;
       transition: all 0.3s;
     }
     li.toTop {
+      opacity: 1;
       height: 45px;
       transition: all 0.5s;
     }
@@ -175,13 +176,13 @@ export default {
       }
       div {
         position: absolute;
+        right: 45px;
         height: 100%;
       }
-      div.toTop,
+      div.toTop1,
       div.phone,
       div.zaixianliuyan {
         width: 0px;
-        right: 45px;
         line-height: 45px;
         font-size: 14px;
         background-color: #000;
@@ -192,7 +193,7 @@ export default {
       background-color: #ff0000;
     }
     li:hover {
-      div.toTop,
+      div.toTop1,
       div.phone,
       div.zaixianliuyan {
         width: 100px;
@@ -302,6 +303,7 @@ export default {
       height: 100px;
       span {
         writing-mode: vertical-lr;
+        cursor: pointer;
       }
       div.img1 {
         position: absolute;

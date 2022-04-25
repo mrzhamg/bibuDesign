@@ -19,7 +19,7 @@
           <el-form-item :label="form_5.time.title">
             <el-date-picker
               v-model="form_5.time.data"
-              type="date"
+              type="datetime"
               placeholder=""
               prefix-icon="el-icon-alarm-clock"
             />
@@ -67,7 +67,7 @@ let icon_box_list = reactive([
 const form_5 = reactive<{time:Object,origin:Object,destination:Object,name:Object}>({
   time:{
     title:'预约时间',
-    data:new Date()
+    data:''
   },
   origin:{
     title:'出发地',
